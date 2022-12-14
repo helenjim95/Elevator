@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Elevator {
 
-    private List<Person> passangers;
+    private List<Person> passengers;
     private Direction direction;
     private Stops stops;
     private List<Integer> sequence;
@@ -15,7 +15,7 @@ public class Elevator {
     private static final int DEFAULT_CAPACITY = 15;
 
     public Elevator(int capacity, int maxFloor) {
-        this.passangers = new ArrayList<>();
+        this.passengers = new ArrayList<>();
         this.direction = Direction.IDLE;
         this.stops = new Stops();
         this.sequence = new ArrayList<>();
@@ -29,7 +29,7 @@ public class Elevator {
     }
 
     public Elevator(int maxFloor) {
-        this.passangers = new ArrayList<>();
+        this.passengers = new ArrayList<>();
         this.direction = Direction.IDLE;
         this.stops = new Stops();
         this.sequence = new ArrayList<>();
@@ -38,12 +38,12 @@ public class Elevator {
         this.currentFloor = 0;
     }
 
-    public List<Person> getPassangers() {
-        return passangers;
+    public List<Person> getPassengers() {
+        return passengers;
     }
 
-    public void setPassangers(List<Person> passangers) {
-        this.passangers = passangers;
+    public void setPassengers(List<Person> passengers) {
+        this.passengers = passengers;
     }
 
     public Direction getDirection() {
@@ -126,12 +126,12 @@ public class Elevator {
 
     public boolean openDoor(Person person) {
 //        TODO: check if there is a person waiting on the floor (think about how that might be related to the argument of this method and where this method will be used)
-        if (this.passangers.size() == 0) {
+        if (this.passengers.size() == 0) {
             this.direction = Direction.IDLE;
             return false;
         } else {
             if (person.getDestinationFloor() == this.getCurrentFloor()) {
-                this.passangers.remove(person);
+                this.passengers.remove(person);
                 if (this.direction != Direction.IDLE) {
                     this.stops.remove(this.direction, person.getDestinationFloor());
                 }
@@ -144,7 +144,7 @@ public class Elevator {
 
     public void closeDoor() {
 //        TODO: checked if the elevator visited all stops in the stops lists
-        if (!this.passangers.isEmpty()) {
+        if (!this.passengers.isEmpty()) {
             if (this.stops.isEmpty(this.direction)) {
                 this.direction = Direction.getReverseDirection(this.direction);
             }
