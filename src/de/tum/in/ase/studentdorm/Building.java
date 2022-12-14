@@ -14,13 +14,22 @@ public class Building {
 
     //add constructors as described in the problem statement
 //    TODO: Take into account that according to German law, buildings with fewer than 5 floors should not be allowed to have an elevator.
-    public Building(Elevator elevator) {
-        this.elevator = elevator;
+    public Building(int numberOfFloors) {
+        this.peopleOnFloor = new Person[numberOfFloors];
+        if (numberOfFloors >= 5) {
+            this.elevator = new Elevator(numberOfFloors);
+        } else {
+            throw new IllegalArgumentException("Building must have at least 5 floors");
+        }
     }
 
-    public Building(Person[] peopleOnFloor, Elevator elevator) {
-        this.peopleOnFloor = peopleOnFloor;
-        this.elevator = elevator;
+    public Building(int numberOfFloors, Elevator elevator) {
+        this.peopleOnFloor = new Person[numberOfFloors];
+        if (numberOfFloors >= 5) {
+            this.elevator = elevator;
+        } else {
+            throw new IllegalArgumentException("Building must have at least 5 floors");
+        }
     }
 
     public Person[] getPeopleOnFloor() {
@@ -43,7 +52,7 @@ public class Building {
      * This method operates the elevator. It will move, open and close the doors as long as necessary in order to fulfill
      * every passenger request.
      */
-    public void operateElevator() throws IllegalArgumentException{
+    public void operateElevator() throws IllegalArgumentException {
 
         //TODO: implement the operateElevator method as described in the problem statement
         while (elevator.getDirection() != Direction.IDLE) {
@@ -71,22 +80,15 @@ public class Building {
     public void processRequests() {
         List<Integer> up = new ArrayList<>();
         List<Integer> down = new ArrayList<>();
-
-        //TODO finish the implementation of the method
         for (Person person : peopleOnFloor) {
-            if (person.getDestinationFloor() > elevator.getCurrentFloor()) {
-                if (!up.contains(person.getDestinationFloor())) {
-                    up.add(person.getDestinationFloor());
-                }
-            } else if (person.getDestinationFloor() < elevator.getCurrentFloor()) {
-                if (!down.contains(person.getDestinationFloor())) {
-                    down.add(person.getDestinationFloor());
-                }
+            if ((person.getDestinationFloor() > elevator.getCurrentFloor()) && !up.contains(person.getDestinationFloor())) {
+                up.add(person.getDestinationFloor());
+            } else if ((person.getDestinationFloor() < elevator.getCurrentFloor()) && !down.contains(person.getDestinationFloor())) {
+                down.add(person.getDestinationFloor());
             }
         }
         up.sort(Integer::compareTo);
         down.sort(Collections.reverseOrder());
-
     }
 
     /**

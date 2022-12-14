@@ -12,7 +12,7 @@ public class Elevator {
     private int capacity;
     private int maxFloor;
     private int currentFloor;
-    private final int DEFAULT_CAPACITY = 15;
+    private static final int DEFAULT_CAPACITY = 15;
 
     public Elevator(int capacity, int maxFloor) {
         this.passangers = new ArrayList<>();
