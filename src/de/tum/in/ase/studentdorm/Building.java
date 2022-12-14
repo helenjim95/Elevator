@@ -1,30 +1,64 @@
 package de.tum.in.ase.studentdorm;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Building {
     /**
      * This class represents our student dorm building.
      */
-    //TODO: add class attributes
+    //add class attributes
+    private Person[] peopleOnFloor;
+    private Elevator elevator;
 
+    //add constructors as described in the problem statement
+//    TODO: Take into account that according to German law, buildings with fewer than 5 floors should not be allowed to have an elevator.
+    public Building(Elevator elevator) {
+        this.elevator = elevator;
+    }
 
-    //todo: add constructors as described in the problem statement
+    public Building(Person[] peopleOnFloor, Elevator elevator) {
+        this.peopleOnFloor = peopleOnFloor;
+        this.elevator = elevator;
+    }
 
+    public Person[] getPeopleOnFloor() {
+        return peopleOnFloor;
+    }
+
+    public void setPeopleOnFloor(Person[] peopleOnFloor) {
+        this.peopleOnFloor = peopleOnFloor;
+    }
+
+    public Elevator getElevator() {
+        return elevator;
+    }
+
+    public void setElevator(Elevator elevator) {
+        this.elevator = elevator;
+    }
 
     /**
      * This method operates the elevator. It will move, open and close the doors as long as necessary in order to fulfill
      * every passenger request.
      */
-    public void operateElevator() {
+    public void operateElevator() throws IllegalArgumentException{
 
         //TODO: implement the operateElevator method as described in the problem statement
+        while (elevator.getDirection() != Direction.IDLE) {
+            elevator.move();
+            for (Person person : peopleOnFloor) {
+                if (person.getDestinationFloor() == elevator.getCurrentFloor()) {
+                    elevator.openDoor(person);
+                    elevator.closeDoor();
+                }
+            }
 
-        //TODO: uncomment the following two lines for easier local testing
-
-        // elevator.printSequence();
-        // System.out.println("Elevator finished on " + elevator.getCurrentFloor());
+        }
+        //uncomment the following two lines for easier local testing
+        elevator.printSequence();
+        System.out.println("Elevator finished on " + elevator.getCurrentFloor());
     }
 
 
@@ -39,6 +73,19 @@ public class Building {
         List<Integer> down = new ArrayList<>();
 
         //TODO finish the implementation of the method
+        for (Person person : peopleOnFloor) {
+            if (person.getDestinationFloor() > elevator.getCurrentFloor()) {
+                if (!up.contains(person.getDestinationFloor())) {
+                    up.add(person.getDestinationFloor());
+                }
+            } else if (person.getDestinationFloor() < elevator.getCurrentFloor()) {
+                if (!down.contains(person.getDestinationFloor())) {
+                    down.add(person.getDestinationFloor());
+                }
+            }
+        }
+        up.sort(Integer::compareTo);
+        down.sort(Collections.reverseOrder());
 
     }
 

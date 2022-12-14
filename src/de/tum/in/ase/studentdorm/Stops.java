@@ -28,11 +28,14 @@ public class Stops {
     /**
      * This method takes a direction value and based on that value it checks if the corresponding list is empty.
      */
-    public boolean isEmpty(Direction direction) {
-        if (direction == Direction.UP) {
+    public boolean isEmpty(Direction direction) throws IllegalArgumentException {
+        if (direction == Direction.IDLE) {
+            throw new IllegalArgumentException("Direction cannot be IDLE");
+        } else if (direction == Direction.UP) {
             return stopsUp.isEmpty();
+        } else {
+            return stopsDown.isEmpty();
         }
-        return stopsDown.isEmpty();
     }
 
     /**
@@ -42,11 +45,23 @@ public class Stops {
      * the int value determines the position within the list to remove from.
      *
      */
-    public void remove(Direction direction, int i) {
-        if (direction == Direction.UP) {
-            stopsUp.remove(i);
+    public void remove(Direction direction, int i) throws IllegalArgumentException {
+        if (direction == Direction.IDLE) {
+            throw new IllegalArgumentException("Direction cannot be IDLE");
+        } else if (i < 0) {
+            throw new IllegalArgumentException("Index out of bounds");
+        } else if (direction == Direction.UP) {
+            if (!stopsUp.contains(i)) {
+                throw new IllegalArgumentException("Index out of bounds");
+            } else {
+                stopsUp.remove(i);
+            }
         } else {
-            stopsDown.remove(i);
+            if (!stopsDown.contains(i)) {
+                throw new IllegalArgumentException("Index out of bounds");
+            } else {
+                stopsDown.remove(i);
+            }
         }
     }
 
@@ -56,8 +71,12 @@ public class Stops {
      * value represents the floor number which should be added.
      *
      */
-    public void addStop(Direction direction, int i) {
-        if (direction == Direction.UP) {
+    public void addStop(Direction direction, int i) throws IllegalArgumentException {
+        if (direction == Direction.IDLE) {
+            throw new IllegalArgumentException("Direction cannot be IDLE");
+        } else if (i < 0) {
+            throw new IllegalArgumentException("Index out of bounds");
+        } else if (direction == Direction.UP) {
             stopsUp.add(i);
         } else {
             stopsDown.add(i);
@@ -71,14 +90,25 @@ public class Stops {
      *
      * @return an int value representing a floor number
      */
-    public int getNextStop(Direction direction, int i) {
-        if (direction == Direction.UP) {
-            return stopsUp.get(i);
+    public int getNextStop(Direction direction, int i) throws IllegalArgumentException {
+        if (direction == Direction.IDLE) {
+            throw new IllegalArgumentException("Direction cannot be IDLE");
+        } else if (i < 0) {
+            throw new IllegalArgumentException("Index out of bounds");
+        } else if (direction == Direction.UP) {
+            if (!stopsUp.contains(i)) {
+                throw new IllegalArgumentException("Index out of bounds");
+            } else {
+                return stopsUp.get(i);
+            }
         } else {
-            return stopsDown.get(i);
+            if (!stopsDown.contains(i)) {
+                throw new IllegalArgumentException("Index out of bounds");
+            } else {
+                return stopsDown.get(i);
+            }
         }
     }
-
 
     public List<Integer> getStopsUp() {
         return stopsUp;
