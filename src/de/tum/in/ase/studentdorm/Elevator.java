@@ -5,9 +5,9 @@ import java.util.List;
 
 public class Elevator {
 
-    protected List<Person> passengers;
-    protected Direction direction;
-    protected Stops stops;
+    private List<Person> passengers;
+    private Direction direction;
+    private Stops stops;
     private List<Integer> sequence;
     private int capacity;
     private int maxFloor;
@@ -108,12 +108,12 @@ public class Elevator {
         if (!this.stops.isEmpty(this.direction) & this.direction != Direction.IDLE) {
             if (this.direction == Direction.UP) {
                 this.currentFloor = this.stops.getStopsUp().get(0);
-                this.currentFloor ++;
+                this.currentFloor++;
                 this.stops.remove(this.direction, 0);
                 return true;
             } else if (this.direction == Direction.DOWN) {
                 this.currentFloor = this.stops.getStopsDown().get(0);
-                this.currentFloor --;
+                this.currentFloor--;
                 this.stops.remove(this.direction, 0);
                 return true;
             } else {

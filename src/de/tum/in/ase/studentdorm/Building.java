@@ -9,8 +9,8 @@ public class Building {
      * This class represents our student dorm building.
      */
     //add class attributes
-    protected Person[] peopleOnFloor;
-    protected Elevator elevator;
+    private Person[] peopleOnFloor;
+    private Elevator elevator;
 
     //add constructors as described in the problem statement
 //    TODO: Take into account that according to German law, buildings with fewer than 5 floors should not be allowed to have an elevator.
@@ -88,9 +88,9 @@ public class Building {
         List<Integer> down = new ArrayList<>();
         for (Person person : peopleOnFloor) {
             if (person != null) {
-                if ((person.getDestinationFloor() > elevator.getCurrentFloor()) && !up.contains(person.getDestinationFloor())) {
+                if (person.getDestinationFloor() > elevator.getCurrentFloor() && !up.contains(person.getDestinationFloor())) {
                     up.add(person.getDestinationFloor());
-                } else if ((person.getDestinationFloor() < elevator.getCurrentFloor()) && !down.contains(person.getDestinationFloor())) {
+                } else if (person.getDestinationFloor() < elevator.getCurrentFloor() && !down.contains(person.getDestinationFloor())) {
                     down.add(person.getDestinationFloor());
                 }
             }
