@@ -137,7 +137,6 @@ public class Elevator {
                 this.passengers.remove(person);
                 if (this.direction != Direction.IDLE) {
                     this.stops.remove(this.direction, person.getDestinationFloor());
-                    this.passengers.remove(person);
                 }
                 return true;
             } else {

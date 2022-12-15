@@ -15,17 +15,25 @@ public class Building {
     //add constructors as described in the problem statement
 //    TODO: Take into account that according to German law, buildings with fewer than 5 floors should not be allowed to have an elevator.
     public Building(int numberOfFloors) {
-        this.peopleOnFloor = new Person[numberOfFloors];
         if (numberOfFloors < 5) {
             this.elevator = new Elevator(5);
+            for (int i = 0; i < 5; i++) {
+            this.peopleOnFloor[i] = new Person(i);
+        }
         } else {
             this.elevator = new Elevator(numberOfFloors);
+            for (int i = 0; i < numberOfFloors; i++) {
+            this.peopleOnFloor[i] = new Person(i);
         }
+        }
+
     }
 
     public Building(int numberOfFloors, Elevator elevator) {
-        this.peopleOnFloor = new Person[numberOfFloors];
         this.elevator = elevator;
+        for (int i = 0; i < numberOfFloors; i++) {
+            this.peopleOnFloor[i] = new Person(i);
+        }
     }
 
     public Person[] getPeopleOnFloor() {
@@ -59,7 +67,9 @@ public class Building {
                         if (peopleOnFloor[elevator.getCurrentFloor()] != null) {
                             int availableSeats = elevator.getCapacity() - elevator.getPassengers().size();
                             if (availableSeats >= peopleOnFloor[elevator.getCurrentFloor()].getDestinationFloor()) {
-                                elevator.getPassengers().add(peopleOnFloor[elevator.getCurrentFloor()]);
+                                Person newPerson = peopleOnFloor[elevator.getCurrentFloor()];
+                                elevator.getPassengers().add(newPerson);
+                                elevator.getSequence().add(newPerson.getDestinationFloor());
                                 peopleOnFloor[elevator.getCurrentFloor()] = null;
                             } else {
                                 throw new IllegalArgumentException("Elevator is full");
