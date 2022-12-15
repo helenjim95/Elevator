@@ -9,27 +9,23 @@ public class Building {
      * This class represents our student dorm building.
      */
     //add class attributes
-    private Person[] peopleOnFloor;
-    private Elevator elevator;
+    protected Person[] peopleOnFloor;
+    protected Elevator elevator;
 
     //add constructors as described in the problem statement
 //    TODO: Take into account that according to German law, buildings with fewer than 5 floors should not be allowed to have an elevator.
     public Building(int numberOfFloors) {
         this.peopleOnFloor = new Person[numberOfFloors];
-        if (numberOfFloors >= 5) {
-            this.elevator = new Elevator(numberOfFloors);
+        if (numberOfFloors < 5) {
+            this.elevator = new Elevator(5);
         } else {
-            throw new IllegalArgumentException("Building must have at least 5 floors");
+            this.elevator = new Elevator(numberOfFloors);
         }
     }
 
     public Building(int numberOfFloors, Elevator elevator) {
         this.peopleOnFloor = new Person[numberOfFloors];
-        if (numberOfFloors >= 5) {
-            this.elevator = elevator;
-        } else {
-            throw new IllegalArgumentException("Building must have at least 5 floors");
-        }
+        this.elevator = elevator;
     }
 
     public Person[] getPeopleOnFloor() {
@@ -53,14 +49,24 @@ public class Building {
      * every passenger request.
      */
     public void operateElevator() throws IllegalArgumentException {
-
         //TODO: implement the operateElevator method as described in the problem statement
         while (elevator.getDirection() != Direction.IDLE) {
             elevator.move();
             for (Person person : peopleOnFloor) {
-                if (person.getDestinationFloor() == elevator.getCurrentFloor()) {
-                    elevator.openDoor(person);
-                    elevator.closeDoor();
+                if (person != null) {
+                    if (person.getDestinationFloor() == elevator.getCurrentFloor()) {
+                        elevator.openDoor(person);
+                        if (peopleOnFloor[elevator.getCurrentFloor()] != null) {
+                            int availableSeats = elevator.getCapacity() - elevator.getPassengers().size();
+                            if (availableSeats >= peopleOnFloor[elevator.getCurrentFloor()].getDestinationFloor()) {
+                                elevator.getPassengers().add(peopleOnFloor[elevator.getCurrentFloor()]);
+                                peopleOnFloor[elevator.getCurrentFloor()] = null;
+                            } else {
+                                throw new IllegalArgumentException("Elevator is full");
+                            }
+                        }
+                        elevator.closeDoor();
+                    }
                 }
             }
 
@@ -81,10 +87,12 @@ public class Building {
         List<Integer> up = new ArrayList<>();
         List<Integer> down = new ArrayList<>();
         for (Person person : peopleOnFloor) {
-            if ((person.getDestinationFloor() > elevator.getCurrentFloor()) && !up.contains(person.getDestinationFloor())) {
-                up.add(person.getDestinationFloor());
-            } else if ((person.getDestinationFloor() < elevator.getCurrentFloor()) && !down.contains(person.getDestinationFloor())) {
-                down.add(person.getDestinationFloor());
+            if (person != null) {
+                if ((person.getDestinationFloor() > elevator.getCurrentFloor()) && !up.contains(person.getDestinationFloor())) {
+                    up.add(person.getDestinationFloor());
+                } else if ((person.getDestinationFloor() < elevator.getCurrentFloor()) && !down.contains(person.getDestinationFloor())) {
+                    down.add(person.getDestinationFloor());
+                }
             }
         }
         up.sort(Integer::compareTo);

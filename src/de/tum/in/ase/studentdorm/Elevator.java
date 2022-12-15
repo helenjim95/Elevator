@@ -5,9 +5,9 @@ import java.util.List;
 
 public class Elevator {
 
-    private List<Person> passengers;
-    private Direction direction;
-    private Stops stops;
+    protected List<Person> passengers;
+    protected Direction direction;
+    protected Stops stops;
     private List<Integer> sequence;
     private int capacity;
     private int maxFloor;
@@ -19,10 +19,10 @@ public class Elevator {
         this.direction = Direction.IDLE;
         this.stops = new Stops();
         this.sequence = new ArrayList<>();
-        if (capacity > 0 && capacity <= DEFAULT_CAPACITY) {
-            this.capacity = capacity;
-        } else {
+        if (capacity < 0 || capacity > DEFAULT_CAPACITY) {
             throw new IllegalArgumentException("Capacity must be between 1 and 15");
+        } else {
+            this.capacity = capacity;
         }
         this.maxFloor = maxFloor;
         this.currentFloor = 0;
@@ -94,35 +94,38 @@ public class Elevator {
         this.currentFloor = currentFloor;
     }
 
-    public int getDEFAULT_CAPACITY() {
+    public int getDefaultCapacity() {
         return DEFAULT_CAPACITY;
     }
 
     public void move() {
         if (changeFloor()) {
-            sequence.add(currentFloor);
+            this.sequence.add(this.currentFloor);
         }
     }
 
     public boolean changeFloor() {
-        if (!this.stops.isEmpty(this.direction)) {
+        if (!this.stops.isEmpty(this.direction) & this.direction != Direction.IDLE) {
             if (this.direction == Direction.UP) {
                 this.currentFloor = this.stops.getStopsUp().get(0);
+                this.currentFloor ++;
                 this.stops.remove(this.direction, 0);
                 return true;
             } else if (this.direction == Direction.DOWN) {
                 this.currentFloor = this.stops.getStopsDown().get(0);
+                this.currentFloor --;
                 this.stops.remove(this.direction, 0);
                 return true;
             } else {
-                this.direction = Direction.UP;
-                return true;
+                return false;
             }
         } else {
             this.direction = Direction.IDLE;
             return false;
         }
     }
+
+
 
     public boolean openDoor(Person person) {
 //        TODO: check if there is a person waiting on the floor (think about how that might be related to the argument of this method and where this method will be used)
@@ -134,6 +137,7 @@ public class Elevator {
                 this.passengers.remove(person);
                 if (this.direction != Direction.IDLE) {
                     this.stops.remove(this.direction, person.getDestinationFloor());
+                    this.passengers.remove(person);
                 }
                 return true;
             } else {
@@ -144,10 +148,16 @@ public class Elevator {
 
     public void closeDoor() {
 //        TODO: checked if the elevator visited all stops in the stops lists
-        if (!this.passengers.isEmpty()) {
-            if (this.stops.isEmpty(this.direction)) {
-                this.direction = Direction.getReverseDirection(this.direction);
-            }
+        if (this.stops.isEmpty(this.direction)) {
+            this.direction = Direction.IDLE;
+        }
+        if (!this.passengers.isEmpty() && this.stops.isEmpty(this.direction)) {
+            this.direction = Direction.getReverseDirection(this.direction);
+        }
+        if (this.currentFloor == this.maxFloor) {
+            this.direction = Direction.DOWN;
+        } else if (this.currentFloor == 0) {
+            this.direction = Direction.UP;
         }
     }
 
