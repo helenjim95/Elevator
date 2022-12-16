@@ -153,11 +153,9 @@ public class Elevator {
 //        TODO: checked if the elevator visited all stops in the stops lists
         if (this.stops.isEmpty(this.direction)) {
             this.direction = Direction.IDLE;
-        }
-        if (!this.passengers.isEmpty() && this.stops.isEmpty(this.direction)) {
+        } else if (!this.passengers.isEmpty() && this.stops.isEmpty(this.direction)) {
             this.direction = Direction.getReverseDirection(this.direction);
-        }
-        if (this.currentFloor == this.maxFloor) {
+        } else if (this.currentFloor == this.maxFloor) {
             this.direction = Direction.DOWN;
         } else if (this.currentFloor == 0) {
             this.direction = Direction.UP;
