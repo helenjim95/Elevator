@@ -16,21 +16,18 @@ public class Building {
 //    TODO: Take into account that according to German law, buildings with fewer than 5 floors should not be allowed to have an elevator.
     public Building(int numberOfFloors) {
         if (numberOfFloors < 5) {
-            this.elevator = new Elevator(5);
-            for (int i = 0; i < 5; i++) {
+            numberOfFloors = 5;
+        }
+        this.peopleOnFloor = new Person[numberOfFloors];
+        this.elevator = new Elevator(numberOfFloors);
+        for (int i = 0; i < numberOfFloors; i++) {
             this.peopleOnFloor[i] = new Person(i);
         }
-        } else {
-            this.elevator = new Elevator(numberOfFloors);
-            for (int i = 0; i < numberOfFloors; i++) {
-            this.peopleOnFloor[i] = new Person(i);
-        }
-        }
-
     }
 
     public Building(int numberOfFloors, Elevator elevator) {
         this.elevator = elevator;
+        this.peopleOnFloor = new Person[numberOfFloors];
         for (int i = 0; i < numberOfFloors; i++) {
             this.peopleOnFloor[i] = new Person(i);
         }
