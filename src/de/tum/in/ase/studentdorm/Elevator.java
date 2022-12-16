@@ -105,7 +105,9 @@ public class Elevator {
     }
 
     public boolean changeFloor() {
-        if (!this.stops.isEmpty(this.direction) & this.direction != Direction.IDLE) {
+        if (this.direction != Direction.IDLE) {
+            return false;
+        } else if (!this.stops.isEmpty(this.direction)) {
             if (this.direction == Direction.UP) {
                 this.currentFloor = this.stops.getStopsUp().get(0);
                 this.currentFloor++;

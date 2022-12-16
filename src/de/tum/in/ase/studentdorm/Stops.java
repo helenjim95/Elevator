@@ -29,7 +29,9 @@ public class Stops {
      * This method takes a direction value and based on that value it checks if the corresponding list is empty.
      */
     public boolean isEmpty(Direction direction) throws IllegalArgumentException {
-        if (direction == Direction.UP) {
+        if (direction == Direction.IDLE) {
+            throw new IllegalArgumentException("Direction cannot be IDLE");
+        } else if (direction == Direction.UP) {
             return stopsUp.isEmpty();
         } else {
             return stopsDown.isEmpty();
