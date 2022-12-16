@@ -19,7 +19,7 @@ public class Elevator {
         this.direction = Direction.IDLE;
         this.stops = new Stops();
         this.sequence = new ArrayList<>();
-        if (capacity < 0 || capacity > DEFAULT_CAPACITY) {
+        if (capacity <= 0 || capacity > DEFAULT_CAPACITY) {
             throw new IllegalArgumentException("Capacity must be between 1 and 15");
         } else {
             this.capacity = capacity;
@@ -105,25 +105,27 @@ public class Elevator {
     }
 
     public boolean changeFloor() {
-        if (this.direction != Direction.IDLE) {
+        if (this.direction == Direction.IDLE) {
             return false;
-        } else if (!this.stops.isEmpty(this.direction)) {
-            if (this.direction == Direction.UP) {
-                this.currentFloor = this.stops.getStopsUp().get(0);
-                this.currentFloor++;
-                this.stops.remove(this.direction, 0);
-                return true;
-            } else if (this.direction == Direction.DOWN) {
-                this.currentFloor = this.stops.getStopsDown().get(0);
-                this.currentFloor--;
-                this.stops.remove(this.direction, 0);
-                return true;
+        } else {
+            if (!this.stops.isEmpty(this.direction)) {
+                if (this.direction == Direction.UP) {
+                    this.currentFloor = this.stops.getStopsUp().get(0);
+                    this.currentFloor++;
+                    this.stops.remove(this.direction, 0);
+                    return true;
+                } else if (this.direction == Direction.DOWN) {
+                    this.currentFloor = this.stops.getStopsDown().get(0);
+                    this.currentFloor--;
+                    this.stops.remove(this.direction, 0);
+                    return true;
+                } else {
+                    return false;
+                }
             } else {
+                this.direction = Direction.IDLE;
                 return false;
             }
-        } else {
-            this.direction = Direction.IDLE;
-            return false;
         }
     }
 
