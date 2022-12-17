@@ -17,9 +17,6 @@ public class Building {
     public Building(int numberOfFloors) {
         this.peopleOnFloor = new Person[numberOfFloors];
         this.elevator = new Elevator(numberOfFloors);
-        for (int i = 0; i < numberOfFloors; i++) {
-            this.peopleOnFloor[i] = new Person(i);
-        }
     }
 
     public Building(int numberOfFloors, Elevator elevator) {
@@ -83,19 +80,17 @@ public class Building {
      * have to be sorted accordingly. It is advisable for you to orient yourself on the SCAN algorithm.
      */
     public void processRequests() {
-        List<Integer> up = new ArrayList<>();
-        List<Integer> down = new ArrayList<>();
         for (Person person : peopleOnFloor) {
             if (person != null) {
-                if (person.getDestinationFloor() > elevator.getCurrentFloor() && !up.contains(person.getDestinationFloor())) {
-                    up.add(person.getDestinationFloor());
-                } else if (person.getDestinationFloor() < elevator.getCurrentFloor() && !down.contains(person.getDestinationFloor())) {
-                    down.add(person.getDestinationFloor());
+                if (person.getDestinationFloor() > elevator.getCurrentFloor() && !this.elevator.getStops().getStopsUp().contains(person.getDestinationFloor())) {
+                    this.elevator.getStops().getStopsUp().add(person.getDestinationFloor());
+                } else if (person.getDestinationFloor() < elevator.getCurrentFloor() && !this.elevator.getStops().getStopsDown().contains(person.getDestinationFloor())) {
+                    this.elevator.getStops().getStopsDown().add(person.getDestinationFloor());
                 }
             }
         }
-        up.sort(Integer::compareTo);
-        down.sort(Collections.reverseOrder());
+        this.elevator.getStops().getStopsUp().sort(Integer::compareTo);
+        this.elevator.getStops().getStopsDown().sort(Collections.reverseOrder());
     }
 
     /**
@@ -105,7 +100,6 @@ public class Building {
         peopleOnFloor[4] = new Person(3);
         peopleOnFloor[0] = new Person(1);
         peopleOnFloor[1] = new Person(0);
-
     }
 
 
