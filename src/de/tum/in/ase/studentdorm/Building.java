@@ -52,22 +52,20 @@ public class Building {
         while (elevator.getDirection() != Direction.IDLE) {
             elevator.move();
             for (Person person : peopleOnFloor) {
-                if (person != null) {
-                    if (person.getDestinationFloor() == elevator.getCurrentFloor()) {
-                        elevator.openDoor(person);
-                        if (peopleOnFloor[elevator.getCurrentFloor()] != null) {
-                            int availableSeats = elevator.getCapacity() - elevator.getPassengers().size();
-                            if (availableSeats >= peopleOnFloor[elevator.getCurrentFloor()].getDestinationFloor()) {
-                                Person newPerson = peopleOnFloor[elevator.getCurrentFloor()];
-                                elevator.getPassengers().add(newPerson);
-                                elevator.getSequence().add(newPerson.getDestinationFloor());
-                                peopleOnFloor[elevator.getCurrentFloor()] = null;
-                            } else {
-                                throw new IllegalArgumentException("Elevator is full");
-                            }
+                if (person != null && person.getDestinationFloor() == elevator.getCurrentFloor()) {
+                    elevator.openDoor(person);
+                    if (peopleOnFloor[elevator.getCurrentFloor()] != null) {
+                        int availableSeats = elevator.getCapacity() - elevator.getPassengers().size();
+                        if (availableSeats >= peopleOnFloor[elevator.getCurrentFloor()].getDestinationFloor()) {
+                            Person newPerson = peopleOnFloor[elevator.getCurrentFloor()];
+                            elevator.getPassengers().add(newPerson);
+                            elevator.getSequence().add(newPerson.getDestinationFloor());
+                            peopleOnFloor[elevator.getCurrentFloor()] = null;
+                        } else {
+                            throw new IllegalArgumentException("Elevator is full");
                         }
-                        elevator.closeDoor();
                     }
+                    elevator.closeDoor();
                 }
             }
 

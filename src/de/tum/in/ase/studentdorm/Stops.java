@@ -96,13 +96,13 @@ public class Stops {
         } else if (i < 0) {
             throw new IllegalArgumentException("Index out of bounds");
         } else if (direction == Direction.UP) {
-            if (!stopsUp.contains(i)) {
+            if (!stopsUp.contains(i) || stopsUp.isEmpty() || i >= stopsUp.size()) {
                 throw new IllegalArgumentException("Index out of bounds");
             } else {
                 return stopsUp.get(i);
             }
         } else {
-            if (!stopsDown.contains(i)) {
+            if (!stopsDown.contains(i) || stopsDown.isEmpty() || i >= stopsDown.size()) {
                 throw new IllegalArgumentException("Index out of bounds");
             } else {
                 return stopsDown.get(i);
