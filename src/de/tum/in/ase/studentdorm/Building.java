@@ -1,8 +1,6 @@
 package de.tum.in.ase.studentdorm;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 public class Building {
     /**
@@ -20,8 +18,8 @@ public class Building {
     }
 
     public Building(int numberOfFloors, Elevator elevator) {
-        new Building(numberOfFloors);
-        this.elevator = elevator;
+        Building building = new Building(numberOfFloors);
+        building.elevator = elevator;
     }
 
     public Person[] getPeopleOnFloor() {
@@ -57,7 +55,7 @@ public class Building {
                             Person newPerson = peopleOnFloor[elevator.getCurrentFloor()];
                             elevator.getPassengers().add(newPerson);
                             elevator.getSequence().add(newPerson.getDestinationFloor());
-//                            peopleOnFloor[elevator.getCurrentFloor()] = null;
+                            peopleOnFloor[elevator.getCurrentFloor()] = null;
                         } else {
                             throw new IllegalArgumentException("Elevator is full");
                         }
