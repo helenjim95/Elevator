@@ -32,9 +32,9 @@ public class Stops {
         if (direction == Direction.IDLE) {
             throw new IllegalArgumentException("Direction cannot be IDLE");
         } else if (direction == Direction.UP) {
-            return stopsUp.isEmpty();
+            return this.stopsUp.size() == 0;
         } else {
-            return stopsDown.isEmpty();
+            return this.stopsDown.size() == 0;
         }
     }
 
@@ -51,16 +51,16 @@ public class Stops {
         } else if (i < 0) {
             throw new IllegalArgumentException("Index out of bounds");
         } else if (direction == Direction.UP) {
-            if (!stopsUp.contains(i)) {
+            if (i >= this.stopsUp.size()) {
                 throw new IllegalArgumentException("Index out of bounds");
             } else {
-                stopsUp.remove(i);
+                this.stopsUp.remove(i);
             }
         } else {
-            if (!stopsDown.contains(i)) {
+            if (i >= this.stopsDown.size()) {
                 throw new IllegalArgumentException("Index out of bounds");
             } else {
-                stopsDown.remove(i);
+                this.stopsDown.remove(i);
             }
         }
     }
@@ -96,13 +96,13 @@ public class Stops {
         } else if (i < 0) {
             throw new IllegalArgumentException("Index out of bounds");
         } else if (direction == Direction.UP) {
-            if (!stopsUp.contains(i) || stopsUp.isEmpty() || i >= stopsUp.size()) {
+            if (stopsUp.isEmpty() || i >= stopsUp.size()) {
                 throw new IllegalArgumentException("Index out of bounds");
             } else {
                 return stopsUp.get(i);
             }
         } else {
-            if (!stopsDown.contains(i) || stopsDown.isEmpty() || i >= stopsDown.size()) {
+            if (stopsDown.isEmpty() || i >= stopsDown.size()) {
                 throw new IllegalArgumentException("Index out of bounds");
             } else {
                 return stopsDown.get(i);
