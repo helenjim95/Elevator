@@ -18,8 +18,8 @@ public class Building {
     }
 
     public Building(int numberOfFloors, Elevator elevator) {
-        Building building = new Building(numberOfFloors);
-        building.elevator = elevator;
+        this.peopleOnFloor = new Person[numberOfFloors];
+        this.elevator = elevator;
     }
 
     public Person[] getPeopleOnFloor() {
