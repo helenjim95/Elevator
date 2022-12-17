@@ -60,7 +60,7 @@ public class Building {
                             Person newPerson = peopleOnFloor[elevator.getCurrentFloor()];
                             elevator.getPassengers().add(newPerson);
                             elevator.getSequence().add(newPerson.getDestinationFloor());
-                            peopleOnFloor[elevator.getCurrentFloor()] = null;
+//                            peopleOnFloor[elevator.getCurrentFloor()] = null;
                         } else {
                             throw new IllegalArgumentException("Elevator is full");
                         }
