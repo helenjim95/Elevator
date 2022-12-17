@@ -102,14 +102,10 @@ public class Building {
      * This method can be used to initialize some standard values in order to test the implementation locally.
      */
     public void setupPeopleWaiting() {
-        //TODO: use this method to generate People waiting on floor
-        // this method does not affect the tests, use it as you wish
+        peopleOnFloor[4] = new Person(3);
+        peopleOnFloor[0] = new Person(1);
+        peopleOnFloor[1] = new Person(0);
 
-        /*
-        floors[4] = new Person(3);
-        floors[0] = new Person(1);
-        floors[1] = new Person(0);
-        */
     }
 
 
@@ -117,10 +113,10 @@ public class Building {
 
     //TODO: use the main method for local testing and debugging
     public static void main(String[] args) {
-        //Building building = new Building(5);
-        //building.setupPeopleWaiting();
-        //building.processRequests();
-        //building.operateElevator();
+        Building building = new Building(5);
+        building.setupPeopleWaiting();
+        building.processRequests();
+        building.operateElevator();
     }
 
 }
