@@ -20,7 +20,7 @@ public class Elevator {
         this.stops = new Stops();
         this.sequence = new ArrayList<>();
         if (capacity < DEFAULT_CAPACITY) {
-            throw new IllegalArgumentException("Capacity must be larger than 0");
+            throw new IllegalArgumentException("Capacity must not be smaller than 15");
         } else {
             this.capacity = capacity;
         }
@@ -94,22 +94,21 @@ public class Elevator {
         } else {
             if (!this.stops.isEmpty(this.direction)) {
                 if (this.direction == Direction.UP && this.currentFloor != this.maxFloor && this.stops.getStopsUp().contains(this.currentFloor)) {
+                    this.currentFloor++;
                     if (this.currentFloor == this.stops.getStopsUp().get(0)) {
                         this.stops.remove(this.direction, 0);
-                        this.currentFloor++;
                         return true;
                     }
-                    this.currentFloor++;
                     return false;
                 } else if (this.direction == Direction.DOWN && this.currentFloor != 0 && this.stops.getStopsDown().contains(this.currentFloor)) {
+                    this.currentFloor--;
                     if (this.currentFloor == this.stops.getStopsDown().get(0)) {
                         this.stops.remove(this.direction, 0);
-                        this.currentFloor--;
                         return true;
                     }
-                    this.currentFloor--;
                     return false;
                 } else {
+                    this.currentFloor--;
                     return false;
                 }
             } else {
