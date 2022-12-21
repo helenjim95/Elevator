@@ -10,7 +10,7 @@ public class Elevator {
     private Stops stops;
     private final List<Integer> sequence;
     private final int capacity;
-    private int maxFloor;
+    private final int maxFloor;
     private int currentFloor;
     private static final int DEFAULT_CAPACITY = 15;
 
@@ -70,10 +70,6 @@ public class Elevator {
         return maxFloor;
     }
 
-    public void setMaxFloor(int maxFloor) {
-        this.maxFloor = maxFloor;
-    }
-
     public int getCurrentFloor() {
         return currentFloor;
     }
@@ -100,6 +96,7 @@ public class Elevator {
                 if (this.direction == Direction.UP && this.currentFloor != this.maxFloor && this.stops.getStopsUp().contains(this.currentFloor)) {
                     if (this.currentFloor == this.stops.getStopsUp().get(0)) {
                         this.stops.remove(this.direction, 0);
+                        this.currentFloor++;
                         return true;
                     }
                     this.currentFloor++;
@@ -107,6 +104,7 @@ public class Elevator {
                 } else if (this.direction == Direction.DOWN && this.currentFloor != 0 && this.stops.getStopsDown().contains(this.currentFloor)) {
                     if (this.currentFloor == this.stops.getStopsDown().get(0)) {
                         this.stops.remove(this.direction, 0);
+                        this.currentFloor--;
                         return true;
                     }
                     this.currentFloor--;
