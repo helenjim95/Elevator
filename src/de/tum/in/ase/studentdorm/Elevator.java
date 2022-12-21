@@ -8,7 +8,7 @@ public class Elevator {
     private final List<Person> passengers;
     private Direction direction;
     private Stops stops;
-    private List<Integer> sequence;
+    private final List<Integer> sequence;
     private int capacity;
     private int maxFloor;
     private int currentFloor;
@@ -60,10 +60,6 @@ public class Elevator {
 
     public List<Integer> getSequence() {
         return sequence;
-    }
-
-    public void setSequence(List<Integer> sequence) {
-        this.sequence = sequence;
     }
 
     public int getCapacity() {
