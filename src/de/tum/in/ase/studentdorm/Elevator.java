@@ -9,7 +9,7 @@ public class Elevator {
     private Direction direction;
     private Stops stops;
     private final List<Integer> sequence;
-    private int capacity;
+    private final int capacity;
     private int maxFloor;
     private int currentFloor;
     private static final int DEFAULT_CAPACITY = 15;
@@ -19,8 +19,8 @@ public class Elevator {
         this.direction = Direction.IDLE;
         this.stops = new Stops();
         this.sequence = new ArrayList<>();
-        if (capacity <= 0) {
-            throw new IllegalArgumentException("Capacity must be between 1 and 15");
+        if (capacity < DEFAULT_CAPACITY) {
+            throw new IllegalArgumentException("Capacity must be larger than 0");
         } else {
             this.capacity = capacity;
         }
@@ -64,10 +64,6 @@ public class Elevator {
 
     public int getCapacity() {
         return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
     }
 
     public int getMaxFloor() {
