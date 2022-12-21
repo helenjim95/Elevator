@@ -80,9 +80,9 @@ public class Building {
     public void processRequests() {
         for (Person person : peopleOnFloor) {
             if (person != null) {
-                if (person.getDestinationFloor() > elevator.getCurrentFloor() && !this.elevator.getStops().getStopsUp().contains(person.getDestinationFloor())) {
+                if (person.getDestinationFloor() > this.elevator.getCurrentFloor() && !this.elevator.getStops().getStopsUp().contains(person.getDestinationFloor())) {
                     this.elevator.getStops().getStopsUp().add(person.getDestinationFloor());
-                } else if (person.getDestinationFloor() < elevator.getCurrentFloor() && !this.elevator.getStops().getStopsDown().contains(person.getDestinationFloor())) {
+                } else if (person.getDestinationFloor() < this.elevator.getCurrentFloor() && !this.elevator.getStops().getStopsDown().contains(person.getDestinationFloor())) {
                     this.elevator.getStops().getStopsDown().add(person.getDestinationFloor());
                 }
             }
