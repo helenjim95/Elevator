@@ -8,7 +8,7 @@ public class Building {
      */
     //add class attributes
     private final Person[] peopleOnFloor;
-    private Elevator elevator;
+    private final Elevator elevator;
 
     //add constructors as described in the problem statement
 //    TODO: Take into account that according to German law, buildings with fewer than 5 floors should not be allowed to have an elevator.
@@ -18,8 +18,12 @@ public class Building {
     }
 
     public Building(int numberOfFloors, Elevator elevator) {
-        this.peopleOnFloor = new Person[numberOfFloors];
-        this.elevator = elevator;
+        if (numberOfFloors > elevator.getMaxFloor()) {
+            throw new IllegalArgumentException("Number of floors cannot be larger than the maximum floor of the elevator");
+        } else {
+            this.peopleOnFloor = new Person[numberOfFloors];
+            this.elevator = elevator;
+        }
     }
 
     public Person[] getPeopleOnFloor() {
@@ -28,10 +32,6 @@ public class Building {
 
     public Elevator getElevator() {
         return elevator;
-    }
-
-    public void setElevator(Elevator elevator) {
-        this.elevator = elevator;
     }
 
     /**
