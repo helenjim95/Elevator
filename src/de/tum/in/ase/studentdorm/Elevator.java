@@ -90,7 +90,15 @@ public class Elevator {
 
     public boolean changeFloor() {
         if (this.direction == Direction.IDLE) {
-            return false;
+            if (!this.stops.isEmpty(Direction.UP)) {
+                this.direction = Direction.UP;
+                return true;
+            } else if (!this.stops.isEmpty(Direction.DOWN)) {
+                this.direction = Direction.DOWN;
+                return true;
+            } else {
+                return false;
+            }
         } else {
             if (!this.stops.isEmpty(this.direction)) {
                 if (this.direction == Direction.UP && this.currentFloor != this.maxFloor && this.stops.getStopsUp().contains(this.currentFloor)) {
