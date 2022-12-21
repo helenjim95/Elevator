@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Elevator {
 
-    private List<Person> passengers;
+    private final List<Person> passengers;
     private Direction direction;
     private Stops stops;
     private List<Integer> sequence;
@@ -40,10 +40,6 @@ public class Elevator {
 
     public List<Person> getPassengers() {
         return passengers;
-    }
-
-    public void setPassengers(List<Person> passengers) {
-        this.passengers = passengers;
     }
 
     public Direction getDirection() {

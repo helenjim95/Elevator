@@ -7,7 +7,7 @@ public class Building {
      * This class represents our student dorm building.
      */
     //add class attributes
-    private Person[] peopleOnFloor;
+    private final Person[] peopleOnFloor;
     private Elevator elevator;
 
     //add constructors as described in the problem statement
@@ -24,10 +24,6 @@ public class Building {
 
     public Person[] getPeopleOnFloor() {
         return peopleOnFloor;
-    }
-
-    public void setPeopleOnFloor(Person[] peopleOnFloor) {
-        this.peopleOnFloor = peopleOnFloor;
     }
 
     public Elevator getElevator() {
