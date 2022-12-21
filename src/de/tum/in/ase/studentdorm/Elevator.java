@@ -112,15 +112,17 @@ public class Elevator {
                 if (this.direction == Direction.UP && this.currentFloor != this.maxFloor && this.stops.getStopsUp().contains(this.currentFloor)) {
                     if (this.currentFloor == this.stops.getStopsUp().get(0)) {
                         this.stops.remove(this.direction, 0);
+                        return true;
                     }
                     this.currentFloor++;
-                    return true;
+                    return false;
                 } else if (this.direction == Direction.DOWN && this.currentFloor != 0 && this.stops.getStopsDown().contains(this.currentFloor)) {
                     if (this.currentFloor == this.stops.getStopsDown().get(0)) {
                         this.stops.remove(this.direction, 0);
+                        return true;
                     }
                     this.currentFloor--;
-                    return true;
+                    return false;
                 } else {
                     return false;
                 }
