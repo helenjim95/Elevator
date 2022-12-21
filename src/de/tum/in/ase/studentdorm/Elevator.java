@@ -83,7 +83,7 @@ public class Elevator {
     }
 
     public void move() {
-        if (changeFloor()) {
+        if (!changeFloor()) {
             this.sequence.add(this.currentFloor);
         }
     }
