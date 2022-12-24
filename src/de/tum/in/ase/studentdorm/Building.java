@@ -22,7 +22,7 @@ public class Building {
     }
 
     public Building(int numberOfFloors, Elevator elevator) {
-        if (numberOfFloors > elevator.getMaxFloor()) {
+        if (numberOfFloors > elevator.getMaxFloor() || numberOfFloors < 5) {
             throw new IllegalArgumentException("Number of floors cannot be larger than the maximum floor of the elevator");
         } else {
             this.peopleOnFloor = new Person[numberOfFloors];
