@@ -130,9 +130,8 @@ public class Elevator {
 
     public boolean openDoor(Person person) {
 //        TODO: check if there is a person waiting on the floor (think about how that might be related to the argument of this method and where this method will be used)
-        if (this.passengers.size() == 0 || person == null) {
+        if (this.passengers.size() == 0) {
             this.direction = Direction.IDLE;
-            return false;
         } else {
             for (Person p : this.passengers) {
                 if (p.getDestinationFloor() == this.currentFloor) {
@@ -140,13 +139,19 @@ public class Elevator {
                     if (this.direction != Direction.IDLE) {
                         this.stops.remove(this.direction, p.getDestinationFloor());
                     }
-                    return true;
-                } else {
-                    return false;
                 }
             }
-            if (person.getDestinationFloor() == this.currentFloor) {
+        }
+        if (person == null) {
+            return false;
+        } else {
+            if (this.passengers.size() < this.capacity) {
                 this.passengers.add(person);
+                if (person.getDestinationFloor() > this.currentFloor) {
+                    this.stops.addStop(Direction.UP, person.getDestinationFloor());
+                } else if (person.getDestinationFloor() < this.currentFloor) {
+                    this.stops.addStop(Direction.DOWN, person.getDestinationFloor());
+                }
                 return true;
             } else {
                 return false;

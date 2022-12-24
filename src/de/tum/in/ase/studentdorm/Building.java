@@ -47,7 +47,7 @@ public class Building {
         while (elevator.getDirection() != Direction.IDLE) {
             elevator.move();
             for (Person person : peopleOnFloor) {
-                if (person != null && person.getDestinationFloor() == elevator.getCurrentFloor()) {
+                if (person != null) {
                     elevator.openDoor(person);
                     if (peopleOnFloor[elevator.getCurrentFloor()] != null) {
                         int availableSeats = elevator.getCapacity() - elevator.getPassengers().size();
@@ -55,7 +55,7 @@ public class Building {
                             Person newPerson = peopleOnFloor[elevator.getCurrentFloor()];
                             elevator.getPassengers().add(newPerson);
                             elevator.getSequence().add(newPerson.getDestinationFloor());
-                            peopleOnFloor[elevator.getCurrentFloor()] = null;
+//                            peopleOnFloor[elevator.getCurrentFloor()] = null;
                         } else {
                             throw new IllegalArgumentException("Elevator is full");
                         }
