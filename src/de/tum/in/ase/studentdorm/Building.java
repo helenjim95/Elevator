@@ -23,11 +23,12 @@ public class Building {
 
     public Building(int numberOfFloors, Elevator elevator) {
         this.peopleOnFloor = new Person[numberOfFloors];
-        if (numberOfFloors < 5) {
-            throw new IllegalArgumentException("Number of floors cannot be larger than the maximum floor of the elevator");
-        } else {
-            this.elevator = elevator;
-        }
+        this.elevator = elevator;
+//        if (numberOfFloors < 5) {
+//            throw new IllegalArgumentException("Number of floors cannot be larger than the maximum floor of the elevator");
+//        } else {
+//            this.elevator = elevator;
+//        }
     }
 
     public Person[] getPeopleOnFloor() {
