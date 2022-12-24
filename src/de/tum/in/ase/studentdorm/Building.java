@@ -86,8 +86,8 @@ public class Building {
             if (person != null) {
                 if (person.getDestinationFloor() > this.elevator.getCurrentFloor() && !this.elevator.getStops().getStopsUp().contains(person.getDestinationFloor())) {
                     this.elevator.getStops().getStopsUp().add(person.getDestinationFloor());
-                } else if (person.getDestinationFloor() < this.elevator.getCurrentFloor() && !this.elevator.getStops().getStopsDown().contains(person.getDestinationFloor())) {
-                    this.elevator.getStops().getStopsDown().add(person.getDestinationFloor());
+//                } else if (person.getDestinationFloor() < this.elevator.getCurrentFloor() && !this.elevator.getStops().getStopsDown().contains(person.getDestinationFloor())) {
+//                    this.elevator.getStops().getStopsDown().add(person.getDestinationFloor());
                 }
             }
         }
@@ -107,7 +107,7 @@ public class Building {
 
 
 
-    //TODO: use the main method for local testing and debugging
+    //use the main method for local testing and debugging
     public static void main(String[] args) {
         Building building = new Building(4);
         System.out.println(building.getElevator().getMaxFloor());

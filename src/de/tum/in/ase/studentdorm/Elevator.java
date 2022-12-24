@@ -100,19 +100,21 @@ public class Elevator {
         } else {
             if (!this.stops.isEmpty(this.direction)) {
                 if (this.direction == Direction.UP && this.currentFloor != this.maxFloor && this.stops.getStopsUp().contains(this.currentFloor)) {
-                    this.currentFloor++;
                     if (this.currentFloor == this.stops.getStopsUp().get(0)) {
                         this.stops.remove(this.direction, 0);
                         return true;
+                    } else {
+                        this.currentFloor++;
+                        return false;
                     }
-                    return false;
                 } else if (this.direction == Direction.DOWN && this.currentFloor != 0 && this.stops.getStopsDown().contains(this.currentFloor)) {
-                    this.currentFloor--;
                     if (this.currentFloor == this.stops.getStopsDown().get(0)) {
                         this.stops.remove(this.direction, 0);
                         return true;
+                    } else {
+                        this.currentFloor--;
+                        return false;
                     }
-                    return false;
                 } else {
                     return false;
                 }
