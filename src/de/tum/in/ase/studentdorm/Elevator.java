@@ -88,7 +88,7 @@ public class Elevator {
         }
     }
 
-//    TODO: returns if the elevator has a stop on the current floor.
+    //    TODO: returns if the elevator has a stop on the current floor.
     public boolean changeFloor() {
         if (this.direction == Direction.IDLE) {
             if (!this.stops.isEmpty(Direction.UP)) {
@@ -96,32 +96,27 @@ public class Elevator {
             } else if (!this.stops.isEmpty(Direction.DOWN)) {
                 this.direction = Direction.DOWN;
             }
-        } else {
-            if (!this.stops.isEmpty(this.direction)) {
-                if (this.direction == Direction.UP && this.stops.getStopsUp().contains(this.currentFloor)) {
-                    if (this.currentFloor == this.stops.getStopsUp().get(0)) {
-                        this.stops.remove(this.direction, 0);
-                        if (this.currentFloor != this.maxFloor) {
-                            this.currentFloor++;
-                        }
-                        return true;
-                    }
-                } else if (this.direction == Direction.DOWN && this.stops.getStopsDown().contains(this.currentFloor)) {
-                    if (this.currentFloor == this.stops.getStopsDown().get(0)) {
-                        this.stops.remove(this.direction, 0);
-                        if (this.currentFloor != 0) {
-                            this.currentFloor--;
-                        }
-                        return true;
-                    }
+        } else if (!this.stops.isEmpty(this.direction)) {
+            if (this.direction == Direction.UP && this.stops.getStopsUp().contains(this.currentFloor)) {
+                if (this.currentFloor == this.stops.getStopsUp().get(0)) {
+                    this.stops.remove(this.direction, 0);
+                } else if (this.currentFloor != this.maxFloor) {
+                    this.currentFloor++;
                 }
-            } else {
-                this.direction = Direction.IDLE;
+                return true;
             }
+        } else if (this.direction == Direction.DOWN && this.stops.getStopsDown().contains(this.currentFloor)) {
+            if (this.currentFloor == this.stops.getStopsDown().get(0)) {
+                this.stops.remove(this.direction, 0);
+            } else if (this.currentFloor != 0) {
+                this.currentFloor--;
+            }
+            return true;
+        } else {
+            this.direction = Direction.IDLE;
         }
         return false;
     }
-
 
 
     public boolean openDoor(Person person) {
