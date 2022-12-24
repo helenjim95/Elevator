@@ -161,15 +161,28 @@ public class Elevator {
 
     public void closeDoor() {
 //        TODO: checked if the elevator visited all stops in the stops lists
-        if (this.stops.isEmpty(this.direction)) {
+        if (this.stops.isEmpty(Direction.UP) && this.stops.isEmpty(Direction.DOWN)) {
             this.direction = Direction.IDLE;
-        } else if (!this.passengers.isEmpty() && this.stops.isEmpty(this.direction)) {
-            this.direction = Direction.getReverseDirection(this.direction);
-        } else if (this.currentFloor == this.maxFloor) {
-            this.direction = Direction.DOWN;
-        } else if (this.currentFloor == 0) {
-            this.direction = Direction.UP;
+        } else {
+            if (this.stops.isEmpty(Direction.UP)) {
+                this.direction = Direction.DOWN;
+            } else if (this.stops.isEmpty(Direction.DOWN)) {
+                this.direction = Direction.UP;
+            } else if (this.currentFloor == this.maxFloor) {
+                this.direction = Direction.DOWN;
+            } else if (this.currentFloor == 0) {
+                this.direction = Direction.UP;
+            }
         }
+//        if (this.stops.isEmpty(this.direction)) {
+//            this.direction = Direction.IDLE;
+//        } else if (!this.passengers.isEmpty() && this.stops.isEmpty(this.direction)) {
+//            this.direction = Direction.getReverseDirection(this.direction);
+//        } else if (this.currentFloor == this.maxFloor) {
+//            this.direction = Direction.DOWN;
+//        } else if (this.currentFloor == 0) {
+//            this.direction = Direction.UP;
+//        }
     }
 
 //    TODO: Add capacity checks
