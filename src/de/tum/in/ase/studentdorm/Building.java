@@ -14,11 +14,11 @@ public class Building {
 //    TODO: Take into account that according to German law, buildings with fewer than 5 floors should not be allowed to have an elevator.
     public Building(int numberOfFloors) {
         this.peopleOnFloor = new Person[numberOfFloors];
-        if (numberOfFloors < 5) {
-            throw new IllegalArgumentException("Building must have at least 5 floors");
-        } else {
-            this.elevator = new Elevator(numberOfFloors);
-        }
+//        if (numberOfFloors < 5) {
+//            throw new IllegalArgumentException("Building must have at least 5 floors");
+//        } else {
+        this.elevator = new Elevator(numberOfFloors);
+//        }
     }
 
     public Building(int numberOfFloors, Elevator elevator) {
@@ -46,6 +46,10 @@ public class Building {
         //TODO: implement the operateElevator method as described in the problem statement
         while (elevator.getDirection() != Direction.IDLE) {
             elevator.move();
+//            if (elevator.getStops().getStops().contains(elevator.getCurrentFloor())) {
+//                elevator.openDoors();
+//                elevator.closeDoors();
+//            }
             for (Person person : peopleOnFloor) {
                 if (person != null) {
                     elevator.openDoor(person);
