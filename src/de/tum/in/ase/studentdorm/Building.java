@@ -15,6 +15,7 @@ public class Building {
     public Building(int numberOfFloors) {
         this.peopleOnFloor = new Person[numberOfFloors];
         if (numberOfFloors < 5) {
+            this.elevator = new Elevator(numberOfFloors);
             throw new IllegalArgumentException("Building must have at least 5 floors");
         } else {
             this.elevator = new Elevator(numberOfFloors);
@@ -23,12 +24,11 @@ public class Building {
 
     public Building(int numberOfFloors, Elevator elevator) {
         this.peopleOnFloor = new Person[numberOfFloors];
-        this.elevator = elevator;
-//        if (numberOfFloors < 5) {
-//            throw new IllegalArgumentException("Number of floors cannot be larger than the maximum floor of the elevator");
-//        } else {
-//            this.elevator = elevator;
-//        }
+        if (numberOfFloors > elevator.getMaxFloor()) {
+            throw new IllegalArgumentException("Number of floors cannot be larger than the maximum floor of the elevator");
+        } else {
+            this.elevator = elevator;
+        }
     }
 
     public Person[] getPeopleOnFloor() {
