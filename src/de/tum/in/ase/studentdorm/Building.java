@@ -15,7 +15,6 @@ public class Building {
     public Building(int numberOfFloors) {
         this.peopleOnFloor = new Person[numberOfFloors];
         if (numberOfFloors < 5) {
-            this.elevator = new Elevator(numberOfFloors);
             throw new IllegalArgumentException("Building must have at least 5 floors");
         } else {
             this.elevator = new Elevator(numberOfFloors);
@@ -85,15 +84,13 @@ public class Building {
     public void processRequests() {
         for (Person person : peopleOnFloor) {
             if (person != null) {
-                if (person.getDestinationFloor() > this.elevator.getCurrentFloor() && !this.elevator.getStops().getStopsUp().contains(person.getDestinationFloor())) {
+                if (!this.elevator.getStops().getStopsUp().contains(person.getDestinationFloor())) {
                     this.elevator.getStops().getStopsUp().add(person.getDestinationFloor());
-                } else if (person.getDestinationFloor() < this.elevator.getCurrentFloor() && !this.elevator.getStops().getStopsDown().contains(person.getDestinationFloor())) {
-                    this.elevator.getStops().getStopsDown().add(person.getDestinationFloor());
                 }
             }
         }
         this.elevator.getStops().getStopsUp().sort(Integer::compareTo);
-        this.elevator.getStops().getStopsDown().sort(Collections.reverseOrder());
+//        this.elevator.getStops().getStopsDown().sort(Collections.reverseOrder());
     }
 
     /**
@@ -110,7 +107,8 @@ public class Building {
 
     //TODO: use the main method for local testing and debugging
     public static void main(String[] args) {
-        Building building = new Building(5);
+        Building building = new Building(4);
+        System.out.println(building.getElevator().getMaxFloor());
         building.setupPeopleWaiting();
         building.processRequests();
         building.operateElevator();
