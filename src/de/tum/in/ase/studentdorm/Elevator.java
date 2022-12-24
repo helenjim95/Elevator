@@ -99,19 +99,19 @@ public class Elevator {
         } else {
             if (!this.stops.isEmpty(this.direction)) {
                 if (this.direction == Direction.UP && this.stops.getStopsUp().contains(this.currentFloor)) {
-                    if (this.currentFloor != this.maxFloor) {
-                        this.currentFloor++;
-                    }
                     if (this.currentFloor == this.stops.getStopsUp().get(0)) {
                         this.stops.remove(this.direction, 0);
+                        if (this.currentFloor != this.maxFloor) {
+                            this.currentFloor++;
+                        }
                         return true;
                     }
                 } else if (this.direction == Direction.DOWN && this.stops.getStopsDown().contains(this.currentFloor)) {
-                    if (this.currentFloor != 0) {
-                        this.currentFloor--;
-                    }
                     if (this.currentFloor == this.stops.getStopsDown().get(0)) {
                         this.stops.remove(this.direction, 0);
+                        if (this.currentFloor != 0) {
+                            this.currentFloor--;
+                        }
                         return true;
                     }
                 }
