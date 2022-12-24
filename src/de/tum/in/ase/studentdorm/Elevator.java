@@ -93,13 +93,10 @@ public class Elevator {
         if (this.direction == Direction.IDLE) {
             if (!this.stops.isEmpty(Direction.UP)) {
                 this.direction = Direction.UP;
-                return true;
             } else if (!this.stops.isEmpty(Direction.DOWN)) {
                 this.direction = Direction.DOWN;
-                return true;
-            } else {
-                return false;
             }
+            return false;
         } else {
             if (!this.stops.isEmpty(this.direction)) {
                 if (this.direction == Direction.UP && this.currentFloor != this.maxFloor && this.stops.getStopsUp().contains(this.currentFloor)) {
@@ -129,7 +126,7 @@ public class Elevator {
 
 
     public boolean openDoor(Person person) {
-//        TODO: check if there is a person waiting on the floor (think about how that might be related to the argument of this method and where this method will be used)
+//        check if there is a person waiting on the floor (think about how that might be related to the argument of this method and where this method will be used)
         if (this.passengers.size() == 0) {
             this.direction = Direction.IDLE;
         } else {
@@ -160,7 +157,7 @@ public class Elevator {
     }
 
     public void closeDoor() {
-//        TODO: checked if the elevator visited all stops in the stops lists
+//        checked if the elevator visited all stops in the stops lists
         if (this.stops.isEmpty(Direction.UP) && this.stops.isEmpty(Direction.DOWN)) {
             this.direction = Direction.IDLE;
         } else {
@@ -174,15 +171,6 @@ public class Elevator {
                 this.direction = Direction.UP;
             }
         }
-//        if (this.stops.isEmpty(this.direction)) {
-//            this.direction = Direction.IDLE;
-//        } else if (!this.passengers.isEmpty() && this.stops.isEmpty(this.direction)) {
-//            this.direction = Direction.getReverseDirection(this.direction);
-//        } else if (this.currentFloor == this.maxFloor) {
-//            this.direction = Direction.DOWN;
-//        } else if (this.currentFloor == 0) {
-//            this.direction = Direction.UP;
-//        }
     }
 
 //    TODO: Add capacity checks
