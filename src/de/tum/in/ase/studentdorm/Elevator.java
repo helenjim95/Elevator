@@ -170,19 +170,12 @@ public class Elevator {
 //        checked if the elevator visited all stops in the stops lists
         if (this.stops.isEmpty(Direction.UP) && this.stops.isEmpty(Direction.DOWN)) {
             this.direction = Direction.IDLE;
-        } else {
-            if (this.stops.isEmpty(Direction.UP)) {
-                this.direction = Direction.DOWN;
-            } else if (this.stops.isEmpty(Direction.DOWN)) {
-                this.direction = Direction.UP;
-            } else if (this.currentFloor == this.maxFloor) {
-                this.direction = Direction.DOWN;
-            } else if (this.currentFloor == 0) {
-                this.direction = Direction.UP;
-            }
+        } else if (this.stops.isEmpty(Direction.UP) || this.currentFloor == this.maxFloor) {
+            this.direction = Direction.DOWN;
+        } else if (this.stops.isEmpty(Direction.DOWN) || this.currentFloor == 0) {
+            this.direction = Direction.UP;
         }
     }
-
 //    TODO: Add capacity checks
     public void printSequence() {
         for (Integer number : sequence) {
