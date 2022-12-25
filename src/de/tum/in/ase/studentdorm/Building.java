@@ -46,31 +46,26 @@ public class Building {
         //TODO: implement the operateElevator method as described in the problem statement
         while (elevator.getDirection() != Direction.IDLE) {
             elevator.move();
-//            if (elevator.getStops().getStops().contains(elevator.getCurrentFloor())) {
-//                elevator.openDoors();
-//                elevator.closeDoors();
-//            }
             for (Person person : peopleOnFloor) {
                 if (person != null) {
                     elevator.openDoor(person);
-                    if (peopleOnFloor[elevator.getCurrentFloor()] != null) {
-                        int availableSeats = elevator.getCapacity() - elevator.getPassengers().size();
-                        if (availableSeats >= peopleOnFloor[elevator.getCurrentFloor()].getDestinationFloor()) {
-                            Person newPerson = peopleOnFloor[elevator.getCurrentFloor()];
-                            elevator.getPassengers().add(newPerson);
-                            elevator.getSequence().add(newPerson.getDestinationFloor());
-//                            peopleOnFloor[elevator.getCurrentFloor()] = null;
-                        } else {
-                            throw new IllegalArgumentException("Elevator is full");
-                        }
-                    }
+//                    if (peopleOnFloor[elevator.getCurrentFloor()] != null) {
+//                        int availableSeats = elevator.getCapacity() - elevator.getPassengers().size();
+//                        if (availableSeats >= peopleOnFloor[elevator.getCurrentFloor()].getDestinationFloor()) {
+//                            Person newPerson = peopleOnFloor[elevator.getCurrentFloor()];
+//                            elevator.getPassengers().add(newPerson);
+//                            elevator.getSequence().add(newPerson.getDestinationFloor());
+////                            peopleOnFloor[elevator.getCurrentFloor()] = null;
+//                        } else {
+//                            throw new IllegalArgumentException("Elevator is full");
+//                        }
+//                    }
                     elevator.closeDoor();
                 }
             }
-
         }
         //uncomment the following two lines for easier local testing
-        elevator.printSequence();
+        this.elevator.printSequence();
         System.out.println("Elevator finished on " + elevator.getCurrentFloor());
     }
 
@@ -109,7 +104,7 @@ public class Building {
     //TODO: use the main method for local testing and debugging
     public static void main(String[] args) {
         Building building = new Building(4);
-        System.out.println(building.getElevator().getMaxFloor());
+//        System.out.println(building.getElevator().getMaxFloor());
         building.setupPeopleWaiting();
         building.processRequests();
         building.operateElevator();
