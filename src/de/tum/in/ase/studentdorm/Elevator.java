@@ -126,10 +126,10 @@ public class Elevator {
                 }
             } else {
                 this.direction = Direction.IDLE;
-                return false;
+                return true;
             }
         }
-        return false;
+        return true;
     }
 
 
