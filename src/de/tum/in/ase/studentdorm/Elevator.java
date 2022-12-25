@@ -2,6 +2,7 @@ package de.tum.in.ase.studentdorm;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 public class Elevator {
 
@@ -133,14 +134,16 @@ public class Elevator {
     }
 
 
-
+//TODO: passenger list keep changing?
     public boolean openDoor(Person person) {
 //        check if there is a person waiting on the floor (think about how that might be related to the argument of this method and where this method will be used)
-        for (Person p : this.passengers) {
+        ListIterator<Person> iter = this.passengers.listIterator();
+        while(iter.hasNext()){
+            Person p = iter.next();
             if (p != null && p.getDestinationFloor() == this.currentFloor) {
-                this.passengers.remove(p);
+                iter.remove();
                 if (this.direction != Direction.IDLE) {
-                    this.stops.remove(this.direction, p.getDestinationFloor());
+                        this.stops.remove(this.direction, p.getDestinationFloor());
                 }
             }
         }
