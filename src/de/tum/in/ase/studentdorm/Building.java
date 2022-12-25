@@ -51,8 +51,8 @@ public class Building {
                     this.elevator.openDoor(person);
                     int availableSeats = elevator.getCapacity() - elevator.getPassengers().size();
                     if (availableSeats >= 1) {
-                        elevator.getPassengers().add(person);
-                        elevator.getSequence().add(person.getDestinationFloor());
+                        this.elevator.getPassengers().add(person);
+                        this.elevator.getSequence().add(person.getDestinationFloor());
                     } else {
                         throw new IllegalArgumentException("Elevator is full");
                     }
