@@ -84,36 +84,37 @@ public class Building {
     public void processRequests() {
         for (Person person : peopleOnFloor) {
             if (person != null) {
-                if (person.getDestinationFloor() > this.elevator.getCurrentFloor() && !this.elevator.getStops().getStopsUp().contains(person.getDestinationFloor())) {
-                    this.elevator.getStops().getStopsUp().add(person.getDestinationFloor());
-//                } else if (person.getDestinationFloor() < this.elevator.getCurrentFloor() && !this.elevator.getStops().getStopsDown().contains(person.getDestinationFloor())) {
-//                    this.elevator.getStops().getStopsDown().add(person.getDestinationFloor());
+                if (!this.elevator.getStops().getStopsUp().contains(person.getDestinationFloor())) {
+                    if (person.getDestinationFloor() > this.elevator.getCurrentFloor() && !this.elevator.getStops().getStopsUp().contains(person.getDestinationFloor())) {
+                        this.elevator.getStops().getStopsUp().add(person.getDestinationFloor());
+                    } else if (person.getDestinationFloor() < this.elevator.getCurrentFloor() && !this.elevator.getStops().getStopsDown().contains(person.getDestinationFloor())) {
+                        this.elevator.getStops().getStopsDown().add(person.getDestinationFloor());
+                    }
                 }
             }
+            this.elevator.getStops().getStopsUp().sort(Integer::compareTo);
+            this.elevator.getStops().getStopsDown().sort(Collections.reverseOrder());
         }
-        this.elevator.getStops().getStopsUp().sort(Integer::compareTo);
-        this.elevator.getStops().getStopsDown().sort(Collections.reverseOrder());
-    }
-
-    /**
-     * This method can be used to initialize some standard values in order to test the implementation locally.
-     */
-    public void setupPeopleWaiting() {
-        peopleOnFloor[4] = new Person(3);
-        peopleOnFloor[0] = new Person(1);
-        peopleOnFloor[1] = new Person(0);
     }
 
 
+        /**
+         * This method can be used to initialize some standard values in order to test the implementation locally.
+         */
+        public void setupPeopleWaiting () {
+            peopleOnFloor[4] = new Person(3);
+            peopleOnFloor[0] = new Person(1);
+            peopleOnFloor[1] = new Person(0);
+        }
 
 
-    //use the main method for local testing and debugging
-    public static void main(String[] args) {
-        Building building = new Building(4);
-        System.out.println(building.getElevator().getMaxFloor());
-        building.setupPeopleWaiting();
-        building.processRequests();
-        building.operateElevator();
+        //use the main method for local testing and debugging
+        public static void main (String[]args){
+            Building building = new Building(4);
+            System.out.println(building.getElevator().getMaxFloor());
+            building.setupPeopleWaiting();
+            building.processRequests();
+            building.operateElevator();
+        }
+
     }
-
-}
