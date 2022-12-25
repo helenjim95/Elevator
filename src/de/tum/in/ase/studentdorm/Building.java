@@ -107,6 +107,7 @@ public class Building {
         building.setupPeopleWaiting();
         building.processRequests();
         building.getElevator().setDirection(Direction.UP);
+        building.getElevator().openDoor(building.getPeopleOnFloor()[0]);
         building.operateElevator();
     }
 
