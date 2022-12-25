@@ -106,7 +106,6 @@ public class Building {
 
 
 
-
     //TODO: use the main method for local testing and debugging
     public static void main(String[] args) {
         Building building = new Building(4);
