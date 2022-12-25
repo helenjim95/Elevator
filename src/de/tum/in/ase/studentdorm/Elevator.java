@@ -93,28 +93,35 @@ public class Elevator {
         if (this.direction == Direction.IDLE) {
             if (!this.stops.isEmpty(Direction.UP)) {
                 this.direction = Direction.UP;
-//                TODO
             } else if (!this.stops.isEmpty(Direction.DOWN)) {
                 this.direction = Direction.DOWN;
             }
             return false;
         } else {
             if (!this.stops.isEmpty(this.direction)) {
-                if (this.direction == Direction.UP && this.currentFloor != this.maxFloor && this.stops.getStopsUp().contains(this.currentFloor)) {
-                    this.currentFloor++;
-                    if (this.currentFloor == this.stops.getStopsUp().get(0)) {
-                        this.stops.remove(this.direction, 0);
-                        return true;
+                if (this.direction == Direction.UP && this.currentFloor != this.maxFloor) {
+                    if (this.stops.getStopsUp().contains(this.currentFloor)) {
+                        if (this.currentFloor == this.stops.getStopsUp().get(0)) {
+                            this.stops.remove(this.direction, 0);
+                            return true;
+                        }
+                    } else {
+                            this.currentFloor++;
+                            return false;
                     }
-                    return false;
-                } else if (this.direction == Direction.DOWN && this.currentFloor != 0 && this.stops.getStopsDown().contains(this.currentFloor)) {
-                    this.currentFloor--;
-                    if (this.currentFloor == this.stops.getStopsDown().get(0)) {
-                        this.stops.remove(this.direction, 0);
-                        return true;
+                } else if (this.direction == Direction.DOWN && this.currentFloor != 0) {
+                    if (this.stops.getStopsDown().contains(this.currentFloor)) {
+                        if (this.currentFloor == this.stops.getStopsDown().get(0)) {
+                            this.stops.remove(this.direction, 0);
+                            return true;
+                        }
+                    } else {
+                        this.currentFloor--;
+                        return false;
                     }
-                    return false;
                 } else {
+//                    TODO: not sure about this
+                    this.currentFloor++;
                     return false;
                 }
             } else {
@@ -122,6 +129,7 @@ public class Elevator {
                 return false;
             }
         }
+        return false;
     }
 
 
@@ -132,7 +140,7 @@ public class Elevator {
             this.direction = Direction.IDLE;
         } else {
             for (Person p : this.passengers) {
-                if (p.getDestinationFloor() == this.currentFloor) {
+                if (p != null && p.getDestinationFloor() == this.currentFloor) {
                     this.passengers.remove(p);
                     if (this.direction != Direction.IDLE) {
                         this.stops.remove(this.direction, p.getDestinationFloor());

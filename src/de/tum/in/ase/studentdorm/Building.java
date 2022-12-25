@@ -44,29 +44,25 @@ public class Building {
      */
     public void operateElevator() throws IllegalArgumentException {
         //TODO: implement the operateElevator method as described in the problem statement
-        while (elevator.getDirection() != Direction.IDLE) {
-            elevator.move();
+        while (this.elevator.getDirection() != Direction.IDLE) {
+            this.elevator.move();
             for (Person person : peopleOnFloor) {
                 if (person != null) {
-                    elevator.openDoor(person);
-//                    if (peopleOnFloor[elevator.getCurrentFloor()] != null) {
-//                        int availableSeats = elevator.getCapacity() - elevator.getPassengers().size();
-//                        if (availableSeats >= peopleOnFloor[elevator.getCurrentFloor()].getDestinationFloor()) {
-//                            Person newPerson = peopleOnFloor[elevator.getCurrentFloor()];
-//                            elevator.getPassengers().add(newPerson);
-//                            elevator.getSequence().add(newPerson.getDestinationFloor());
-////                            peopleOnFloor[elevator.getCurrentFloor()] = null;
-//                        } else {
-//                            throw new IllegalArgumentException("Elevator is full");
-//                        }
-//                    }
-                    elevator.closeDoor();
+                    this.elevator.openDoor(person);
+                    int availableSeats = elevator.getCapacity() - elevator.getPassengers().size();
+                    if (availableSeats >= 1) {
+                        elevator.getPassengers().add(person);
+                        elevator.getSequence().add(person.getDestinationFloor());
+                    } else {
+                        throw new IllegalArgumentException("Elevator is full");
+                    }
+                    this.elevator.closeDoor();
                 }
             }
         }
         //uncomment the following two lines for easier local testing
         this.elevator.printSequence();
-        System.out.println("Elevator finished on " + elevator.getCurrentFloor());
+        System.out.println("Elevator finished on " + this.elevator.getCurrentFloor());
     }
 
 
@@ -94,19 +90,23 @@ public class Building {
      * This method can be used to initialize some standard values in order to test the implementation locally.
      */
     public void setupPeopleWaiting() {
-        peopleOnFloor[4] = new Person(3);
         peopleOnFloor[0] = new Person(1);
         peopleOnFloor[1] = new Person(0);
+        peopleOnFloor[2] = new Person(4);
+        peopleOnFloor[3] = new Person(2);
+        peopleOnFloor[4] = new Person(3);
     }
 
 
 
     //TODO: use the main method for local testing and debugging
     public static void main(String[] args) {
-        Building building = new Building(4);
+        Elevator elevator = new Elevator(15, 6);
+        Building building = new Building(6, elevator);
 //        System.out.println(building.getElevator().getMaxFloor());
         building.setupPeopleWaiting();
         building.processRequests();
+        building.getElevator().setDirection(Direction.UP);
         building.operateElevator();
     }
 
