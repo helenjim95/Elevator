@@ -83,6 +83,8 @@ public class Building {
         }
         this.elevator.getStops().getStopsUp().sort(Integer::compareTo);
         this.elevator.getStops().getStopsDown().sort(Collections.reverseOrder());
+        System.out.println("Stops up: " + this.elevator.getStops().getStopsUp());
+        System.out.println("Stops down: " + this.elevator.getStops().getStopsDown());
     }
 
     /**
@@ -90,10 +92,10 @@ public class Building {
      */
     public void setupPeopleWaiting() {
         peopleOnFloor[0] = new Person(1);
-        peopleOnFloor[1] = new Person(0);
-        peopleOnFloor[2] = new Person(4);
-        peopleOnFloor[3] = new Person(2);
-        peopleOnFloor[4] = new Person(3);
+        peopleOnFloor[1] = new Person(2);
+        peopleOnFloor[2] = new Person(3);
+        peopleOnFloor[3] = new Person(4);
+//        peopleOnFloor[4] = new Person(3);
     }
 
 

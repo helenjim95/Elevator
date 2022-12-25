@@ -127,8 +127,6 @@ public class Elevator {
     }
 
 
-
-//TODO: passenger list keep changing?
     public boolean openDoor(Person person) {
 //        check if there is a person waiting on the floor (think about how that might be related to the argument of this method and where this method will be used)
         ListIterator<Person> iter = this.passengers.listIterator();
