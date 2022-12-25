@@ -145,7 +145,7 @@ public class Elevator {
             if (p != null && p.getDestinationFloor() == this.currentFloor) {
                 iter.remove();
                 if (this.direction != Direction.IDLE) {
-                        this.stops.remove(this.direction, p.getDestinationFloor());
+                    this.stops.remove(this.direction, p.getDestinationFloor());
                 }
             }
         }

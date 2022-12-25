@@ -49,8 +49,7 @@ public class Building {
             for (Person person : peopleOnFloor) {
                 if (person != null) {
                     this.elevator.openDoor(person);
-                    int availableSeats = elevator.getCapacity() - elevator.getPassengers().size();
-                    if (availableSeats >= 1) {
+                    if (elevator.getCapacity() - elevator.getPassengers().size() > 0) {
                         this.elevator.getPassengers().add(person);
                         this.elevator.getSequence().add(person.getDestinationFloor());
                     } else {
