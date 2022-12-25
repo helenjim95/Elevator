@@ -94,43 +94,40 @@ public class Elevator {
         if (this.direction == Direction.IDLE) {
             if (!this.stops.isEmpty(Direction.UP)) {
                 this.direction = Direction.UP;
+                this.currentFloor++;
             } else if (!this.stops.isEmpty(Direction.DOWN)) {
                 this.direction = Direction.DOWN;
+                this.currentFloor--;
             }
-        } else {
-            if (!this.stops.isEmpty(this.direction)) {
-                if (this.direction == Direction.UP && this.currentFloor != this.maxFloor) {
-                    if (this.stops.getStopsUp().contains(this.currentFloor)) {
-                        if (this.currentFloor == this.stops.getStopsUp().get(0)) {
-                            this.stops.remove(this.direction, 0);
-                            return true;
-                        }
-                    } else {
-                        this.currentFloor++;
-                        return false;
-                    }
-                } else if (this.direction == Direction.DOWN && this.currentFloor != 0) {
-                    if (this.stops.getStopsDown().contains(this.currentFloor)) {
-                        if (this.currentFloor == this.stops.getStopsDown().get(0)) {
-                            this.stops.remove(this.direction, 0);
-                            return true;
-                        }
-                    } else {
-                        this.currentFloor--;
-                        return false;
+        } else if (!this.stops.isEmpty(this.direction)) {
+            if (this.direction == Direction.UP && this.currentFloor != this.maxFloor) {
+                if (this.stops.getStopsUp().contains(this.currentFloor)) {
+                    if (this.currentFloor == this.stops.getStopsUp().get(0)) {
+                        this.stops.remove(this.direction, 0);
+                        return true;
                     }
                 } else {
-//                    TODO: not sure about this
                     this.currentFloor++;
                     return false;
                 }
-            } else {
-                this.direction = Direction.IDLE;
-                return true;
+            } else if (this.direction == Direction.DOWN && this.currentFloor != 0) {
+                if (this.stops.getStopsDown().contains(this.currentFloor)) {
+                    if (this.currentFloor == this.stops.getStopsDown().get(0)) {
+                        this.stops.remove(this.direction, 0);
+                        return true;
+                    }
+                } else {
+                    this.currentFloor--;
+                    return false;
+                }
             }
+        } else {
+            this.direction = Direction.IDLE;
+            return true;
         }
         return true;
     }
+
 
 
 //TODO: passenger list keep changing?
