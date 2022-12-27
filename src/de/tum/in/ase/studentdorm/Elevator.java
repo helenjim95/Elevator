@@ -99,6 +99,7 @@ public class Elevator {
                 this.direction = Direction.DOWN;
             }
         } else if (!this.stops.isEmpty(this.direction) && this.currentFloor == this.stops.getNextStop(this.direction, 0)) {
+            return true;
         } else if (this.direction == Direction.UP) {
             this.currentFloor++;
             return false;
