@@ -103,10 +103,10 @@ public class Elevator {
         } else if (!this.stops.isEmpty(this.direction)) {
             if (this.currentFloor == this.stops.getNextStop(this.direction, 0)) {
                 return true;
-            } else if (this.direction == Direction.UP && this.currentFloor != this.maxFloor) {
+            } else if (this.direction == Direction.UP) {
                 this.currentFloor++;
                 return false;
-            } else if (this.direction == Direction.DOWN && this.currentFloor != 0) {
+            } else if (this.direction == Direction.DOWN) {
                 this.currentFloor--;
                 return false;
             }
