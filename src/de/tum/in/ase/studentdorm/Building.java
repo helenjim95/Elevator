@@ -43,7 +43,7 @@ public class Building {
      * every passenger request.
      */
     public void operateElevator() throws IllegalArgumentException {
-        //TODO: implement the operateElevator method as described in the problem statement
+        //implement the operateElevator method as described in the problem statement
         while (this.elevator.getDirection() != Direction.IDLE) {
             this.elevator.move();
             this.elevator.openDoor(this.peopleOnFloor[this.elevator.getCurrentFloor()]);
@@ -76,17 +76,18 @@ public class Building {
     public void processRequests() {
         for (Person person : peopleOnFloor) {
             if (person != null) {
-                if (person.getDestinationFloor() >= this.elevator.getCurrentFloor() && !this.elevator.getStops().getStopsUp().contains(person.getDestinationFloor())) {
+                Direction direction = Direction.computeDirection(this.elevator.getCurrentFloor(), person.getDestinationFloor());
+                if (direction == Direction.UP && !this.elevator.getStops().getStopsUp().contains(person.getDestinationFloor())) {
                     this.elevator.getStops().getStopsUp().add(person.getDestinationFloor());
-                } else if (person.getDestinationFloor() < this.elevator.getCurrentFloor() && !this.elevator.getStops().getStopsDown().contains(person.getDestinationFloor())) {
+                } else if (direction == Direction.DOWN && !this.elevator.getStops().getStopsDown().contains(person.getDestinationFloor())) {
                     this.elevator.getStops().getStopsDown().add(person.getDestinationFloor());
                 }
             }
         }
         this.elevator.getStops().getStopsUp().sort(Integer::compareTo);
         this.elevator.getStops().getStopsDown().sort(Collections.reverseOrder());
-        System.out.println("Stops up: " + this.elevator.getStops().getStopsUp());
-        System.out.println("Stops down: " + this.elevator.getStops().getStopsDown());
+//        System.out.println("Stops up: " + this.elevator.getStops().getStopsUp());
+//        System.out.println("Stops down: " + this.elevator.getStops().getStopsDown());
     }
 
     /**
