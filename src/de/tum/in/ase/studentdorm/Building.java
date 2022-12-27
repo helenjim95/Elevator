@@ -46,7 +46,7 @@ public class Building {
         //implement the operateElevator method as described in the problem statement
         while (this.elevator.getDirection() != Direction.IDLE) {
             this.elevator.move();
-            boolean personEnter = this.elevator.openDoor(this.peopleOnFloor[this.elevator.getCurrentFloor()]);
+            this.elevator.openDoor(this.peopleOnFloor[this.elevator.getCurrentFloor()]);
             this.elevator.closeDoor();
 //            for (Person person : this.peopleOnFloor) {
 //                if (person != null) {
