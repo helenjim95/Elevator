@@ -111,18 +111,14 @@ public class Elevator {
                     this.currentFloor++;
                     return false;
                 } else {
-                    this.direction = Direction.DOWN;
-                    this.currentFloor--;
-                    return false;
+                    return true;
                 }
             } else if (this.direction == Direction.DOWN) {
                 if (this.currentFloor != 0) {
                     this.currentFloor--;
                     return false;
                 } else {
-                    this.direction = Direction.UP;
-                    this.currentFloor++;
-                    return false;
+                    return true;
                 }
             } else {
                 return true;
