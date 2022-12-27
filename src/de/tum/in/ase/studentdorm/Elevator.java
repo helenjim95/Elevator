@@ -126,6 +126,30 @@ public class Elevator {
 //        Be sure to sort the passenger's list in the method openDoor based on the order
 //        already introduced. Of course, the person who sadly has to be kicked out
 //        should not be in the list.
+        Comparator<Person> comparator = (p1, p2) -> {
+            int p1Distance = p1.computeDistance(this.currentFloor);
+            int p2Distance = p2.computeDistance(this.currentFloor);
+            if (p1Distance == p2Distance) {
+                if (Direction.computeDirection(this.currentFloor, p1.getDestinationFloor()) == Direction.DOWN) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
+            return p1Distance - p2Distance;
+        };
+        this.passengers.sort(comparator);
+
+        ListIterator<Person> iterator = this.passengers.listIterator();
+            while (iterator.hasNext()) {
+                Person p = iterator.next();
+                if (p.getDestinationFloor() == this.currentFloor) {
+                    iterator.remove();
+                    if (this.direction != Direction.IDLE) {
+                        this.stops.remove(this.direction, p.getDestinationFloor());
+                    }
+                }
+            }
         if (person != null) {
             if (this.passengers.size() < this.capacity) {
                 this.passengers.add(person);
@@ -136,21 +160,8 @@ public class Elevator {
                 }
                 return true;
             } else {
-                Comparator<Person> comparator = (p1, p2) -> {
-                    int p1Distance = p1.computeDistance(this.currentFloor);
-                    int p2Distance = p2.computeDistance(this.currentFloor);
-                    if (p1Distance == p2Distance) {
-                        if (Direction.computeDirection(this.currentFloor, p1.getDestinationFloor()) == Direction.DOWN) {
-                            return 1;
-                        } else {
-                            return -1;
-                        }
-                    }
-                    return p1Distance - p2Distance;
-                };
-                this.passengers.sort(comparator);
-                ListIterator<Person> iterator = this.passengers.listIterator();
-                while (iterator.hasNext()) {
+                ListIterator<Person> iterator2 = this.passengers.listIterator();
+                while (iterator2.hasNext()) {
                     Person p = iterator.next();
                     if (p.getDestinationFloor() == this.currentFloor) {
                         iterator.remove();
