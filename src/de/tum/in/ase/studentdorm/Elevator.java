@@ -20,7 +20,7 @@ public class Elevator {
         this.direction = Direction.IDLE;
         this.stops = new Stops();
         this.sequence = new ArrayList<>();
-        if (capacity < maxFloor || capacity < 1) {
+        if (capacity < DEFAULT_CAPACITY) {
             throw new IllegalArgumentException("illegal capacity");
         } else {
             this.capacity = capacity;
