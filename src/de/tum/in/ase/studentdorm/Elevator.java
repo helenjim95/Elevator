@@ -1,8 +1,6 @@
 package de.tum.in.ase.studentdorm;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 public class Elevator {
 
@@ -117,31 +115,62 @@ public class Elevator {
 
     public boolean openDoor(Person person) {
 //        check if there is a person waiting on the floor (think about how that might be related to the argument of this method and where this method will be used)
-        ListIterator<Person> iter = this.passengers.listIterator();
-        while (iter.hasNext()) {
-            Person p = iter.next();
-            if (p != null && p.getDestinationFloor() == this.currentFloor) {
-                iter.remove();
-                if (this.direction != Direction.IDLE) {
-                    this.stops.remove(this.direction, p.getDestinationFloor());
-                }
+//        Capacity tells you the maximum capacity the elevator is allowed to have.
+//        If the elevator stops at a floor, a person might not be allowed to enter.
+//        Unlike the usual elevator, this elevator can actually throw a person out based on
+//        the absolute distance between the floor the elevator is currently on and
+//        the destination floor of the passenger. The person with the smallest absolute distance
+//        is thrown out, or not allowed to enter the elevator. Since it is easier to walk downstairs
+//        than upstairs, in case two people have the same absolute distance,
+//        the one whose destination floor is downstairs is the one to not travel in the elevator.
+//        Be sure to sort the passenger's list in the method openDoor based on the order
+//        already introduced. Of course, the person who sadly has to be kicked out
+//        should not be in the list.
+        if (this.passengers.size() < this.capacity) {
+            this.passengers.add(person);
+            if (person.getDestinationFloor() > this.currentFloor) {
+                this.stops.addStop(Direction.UP, person.getDestinationFloor());
+            } else if (person.getDestinationFloor() < this.currentFloor) {
+                this.stops.addStop(Direction.DOWN, person.getDestinationFloor());
             }
-        }
-        if (person == null) {
-            return false;
+            return true;
         } else {
-            if (this.passengers.size() < this.capacity) {
-                this.passengers.add(person);
-                if (person.getDestinationFloor() > this.currentFloor) {
-                    this.stops.addStop(Direction.UP, person.getDestinationFloor());
-                } else if (person.getDestinationFloor() < this.currentFloor) {
-                    this.stops.addStop(Direction.DOWN, person.getDestinationFloor());
+            Comparator<Person> comparator = (p1, p2) -> {
+                int p1Distance = p1.computeDistance(this.currentFloor);
+                int p2Distance = p2.computeDistance(this.currentFloor);
+                if (p1Distance == p2Distance) {
+                    if (Direction.computeDirection(this.currentFloor, p1.getDestinationFloor()) == Direction.DOWN) {
+                        return 1;
+                    } else {
+                        return -1;
+                    }
                 }
-                return true;
-            } else {
-                return false;
+                return p1Distance - p2Distance;
+            };
+            this.passengers.sort(comparator);
+            ListIterator<Person> iterator = this.passengers.listIterator();
+            while (iterator.hasNext()) {
+                Person p = iterator.next();
+                if (p.getDestinationFloor() == this.currentFloor) {
+                    iterator.remove();
+                    if (this.direction != Direction.IDLE) {
+                    this.stops.remove(this.direction, p.getDestinationFloor());
+                    }
+                }
+                if (p.computeDistance(this.currentFloor) < person.computeDistance(this.currentFloor)) {
+                    iterator.remove();
+                    this.passengers.add(person);
+                    return true;
+                } else if (p.computeDistance(this.currentFloor) == person.computeDistance(this.currentFloor)) {
+                    if (Direction.computeDirection(this.currentFloor, p.getDestinationFloor()) == Direction.DOWN) {
+                        iterator.remove();
+                        this.passengers.add(person);
+                        return true;
+                    }
+                }
             }
         }
+        return false;
     }
 
     public void closeDoor() {
