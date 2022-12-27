@@ -17,14 +17,14 @@ public class Building {
         if (numberOfFloors < 5) {
             throw new IllegalArgumentException("Building must have at least 5 floors");
         } else {
-            this.elevator = new Elevator(numberOfFloors);
+            this.elevator = new Elevator(numberOfFloors - 1);
         }
     }
 
     public Building(int numberOfFloors, Elevator elevator) {
         this.peopleOnFloor = new Person[numberOfFloors];
-        if (numberOfFloors > elevator.getMaxFloor()) {
-            throw new IllegalArgumentException("Number of floors cannot be larger than the maximum floor of the elevator");
+        if (numberOfFloors - 1 > elevator.getMaxFloor()) {
+            throw new IllegalArgumentException("Number of floors - 1 cannot be larger than the maximum floor of the elevator");
         } else {
             this.elevator = elevator;
         }
