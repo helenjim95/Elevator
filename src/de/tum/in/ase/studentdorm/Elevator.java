@@ -87,6 +87,7 @@ public class Elevator {
         while (true) {
             if (changeFloor()) {
                 this.sequence.add(this.currentFloor);
+                break;
             }
         }
     }
