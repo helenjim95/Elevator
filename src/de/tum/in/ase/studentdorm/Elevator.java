@@ -149,9 +149,9 @@ public class Elevator {
         if (this.stops.isEmpty(Direction.UP) && this.stops.isEmpty(Direction.DOWN)) {
             this.direction = Direction.IDLE;
         } else if (this.stops.isEmpty(Direction.UP) || this.currentFloor == this.maxFloor) {
-            this.direction = Direction.DOWN;
+            this.direction = Direction.getReverseDirection(this.direction);
         } else if (this.stops.isEmpty(Direction.DOWN) || this.currentFloor == 0) {
-            this.direction = Direction.UP;
+            this.direction = Direction.getReverseDirection(this.direction);
         }
     }
 //    TODO: Add capacity checks
