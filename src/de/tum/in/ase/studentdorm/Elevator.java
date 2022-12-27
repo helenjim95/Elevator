@@ -99,7 +99,7 @@ public class Elevator {
             }
         } else if (!this.stops.isEmpty(this.direction)) {
             if (this.direction == Direction.UP) {
-                if (this.currentFloor != this.maxFloor){
+                if (this.currentFloor != this.maxFloor) {
                     if (this.stops.getStopsUp().contains(this.currentFloor)) {
                         if (this.currentFloor == this.stops.getStopsUp().get(0)) {
                             this.stops.remove(this.direction, 0);
