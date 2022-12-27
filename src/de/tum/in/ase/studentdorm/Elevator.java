@@ -100,11 +100,10 @@ public class Elevator {
                 return true;
             }
         } else if (!this.stops.isEmpty(this.direction)) {
-            if (this.direction == Direction.UP) {
-                if (this.currentFloor == this.stops.getNextStop(this.direction, 0)) {
-                    this.stops.remove(this.direction, 0);
-                    return true;
-                }
+            if (this.currentFloor == this.stops.getNextStop(this.direction, 0)) {
+                this.stops.remove(this.direction, 0);
+                return true;
+            } else if (this.direction == Direction.UP) {
                 if (this.currentFloor != this.maxFloor) {
                     this.currentFloor++;
                     return false;
@@ -114,10 +113,6 @@ public class Elevator {
                     return false;
                 }
             } else if (this.direction == Direction.DOWN) {
-                if (this.currentFloor == this.stops.getNextStop(this.direction, 0)) {
-                    this.stops.remove(this.direction, 0);
-                    return true;
-                }
                 if (this.currentFloor != 0) {
                     this.currentFloor--;
                     return false;
@@ -126,6 +121,9 @@ public class Elevator {
                     this.currentFloor++;
                     return false;
                 }
+            } else {
+                this.direction = Direction.IDLE;
+                return true;
             }
         }
         this.direction = Direction.IDLE;
