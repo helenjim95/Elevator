@@ -84,7 +84,7 @@ public class Elevator {
     }
 
     public void move() {
-        while(true) {
+        while (true) {
             if (changeFloor()) {
                 this.sequence.add(this.currentFloor);
                 break;
@@ -99,8 +99,6 @@ public class Elevator {
                 this.direction = Direction.UP;
             } else if (!this.stops.isEmpty(Direction.DOWN)) {
                 this.direction = Direction.DOWN;
-            } else {
-                return true;
             }
         } else if (!this.stops.isEmpty(this.direction)) {
             if (this.currentFloor == this.stops.getNextStop(this.direction, 0)) {
@@ -110,18 +108,12 @@ public class Elevator {
                 if (this.currentFloor != this.maxFloor) {
                     this.currentFloor++;
                     return false;
-                } else {
-                    return true;
                 }
             } else if (this.direction == Direction.DOWN) {
                 if (this.currentFloor != 0) {
                     this.currentFloor--;
                     return false;
-                } else {
-                    return true;
                 }
-            } else {
-                return true;
             }
         }
         return true;
