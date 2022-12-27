@@ -46,18 +46,20 @@ public class Building {
         //TODO: implement the operateElevator method as described in the problem statement
         while (this.elevator.getDirection() != Direction.IDLE) {
             this.elevator.move();
-            for (Person person : this.peopleOnFloor) {
-                if (person != null) {
-                    this.elevator.openDoor(person);
-                    if (this.elevator.getCapacity() - this.elevator.getPassengers().size() > 0) {
-                        this.elevator.getPassengers().add(person);
-                        this.elevator.getSequence().add(person.getDestinationFloor());
-                    } else {
-                        throw new IllegalArgumentException("Elevator is full");
-                    }
-                    this.elevator.closeDoor();
-                }
-            }
+            this.elevator.openDoor(this.peopleOnFloor[this.elevator.getCurrentFloor()]);
+            this.elevator.closeDoor();
+//            for (Person person : this.peopleOnFloor) {
+//                if (person != null) {
+//                    this.elevator.openDoor(person);
+//                    if (this.elevator.getCapacity() <= this.elevator.getPassengers().size()) {
+//                        throw new IllegalArgumentException("Elevator is full");
+//                    } else {
+//                        this.elevator.getPassengers().add(person);
+//                        this.elevator.getSequence().add(person.getDestinationFloor());
+//                    }
+//
+//                }
+//            }
         }
         //uncomment the following two lines for easier local testing
         this.elevator.printSequence();
