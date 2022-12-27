@@ -78,9 +78,9 @@ public class Building {
             if (person != null) {
                 Direction direction = Direction.computeDirection(this.elevator.getCurrentFloor(), person.getDestinationFloor());
                 if (direction == Direction.UP && !this.elevator.getStops().getStopsUp().contains(person.getDestinationFloor())) {
-                    this.elevator.getStops().getStopsUp().add(person.getDestinationFloor());
+                    this.elevator.getStops().addStop(direction, person.getDestinationFloor());
                 } else if (direction == Direction.DOWN && !this.elevator.getStops().getStopsDown().contains(person.getDestinationFloor())) {
-                    this.elevator.getStops().getStopsDown().add(person.getDestinationFloor());
+                    this.elevator.getStops().addStop(direction, person.getDestinationFloor());
                 }
             }
         }
