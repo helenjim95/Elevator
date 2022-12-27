@@ -74,7 +74,7 @@ public class Building {
      * have to be sorted accordingly. It is advisable for you to orient yourself on the SCAN algorithm.
      */
     public void processRequests() {
-        for (Person person : peopleOnFloor) {
+        for (Person person : this.peopleOnFloor) {
             if (person != null) {
                 Direction direction = Direction.computeDirection(this.elevator.getCurrentFloor(), person.getDestinationFloor());
                 if (direction == Direction.UP && !this.elevator.getStops().getStopsUp().contains(person.getDestinationFloor())) {

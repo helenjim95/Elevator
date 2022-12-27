@@ -129,24 +129,17 @@ public class Elevator {
         Comparator<Person> comparator = (p1, p2) -> {
             int p1Distance = p1.computeDistance(this.currentFloor);
             int p2Distance = p2.computeDistance(this.currentFloor);
-            if (p1Distance == p2Distance) {
-                if (Direction.computeDirection(this.currentFloor, p1.getDestinationFloor()) == Direction.DOWN) {
-                    return 1;
-                } else {
-                    return -1;
-                }
-            }
             return p1Distance - p2Distance;
         };
         this.passengers.sort(comparator);
 
         ListIterator<Person> iterator = this.passengers.listIterator();
             while (iterator.hasNext()) {
-                Person p = iterator.next();
-                if (p.getDestinationFloor() == this.currentFloor) {
+                Person currentPassanger = iterator.next();
+                if (currentPassanger.getDestinationFloor() == this.currentFloor) {
                     iterator.remove();
                     if (this.direction != Direction.IDLE) {
-                        this.stops.remove(this.direction, p.getDestinationFloor());
+                        this.stops.remove(this.direction, currentPassanger.getDestinationFloor());
                     }
                 }
             }
@@ -162,18 +155,18 @@ public class Elevator {
             } else if (this.passengers.size() == this.capacity) {
                 ListIterator<Person> iterator2 = this.passengers.listIterator();
                 while (iterator2.hasNext()) {
-                    Person p = iterator.next();
-                    if (p.getDestinationFloor() == this.currentFloor) {
+                    Person currentPassanger = iterator.next();
+                    if (currentPassanger.getDestinationFloor() == this.currentFloor) {
                         iterator.remove();
                         if (this.direction != Direction.IDLE) {
-                            this.stops.remove(this.direction, p.getDestinationFloor());
+                            this.stops.remove(this.direction, currentPassanger.getDestinationFloor());
                         }
                     }
-                    if (p.computeDistance(this.currentFloor) < person.computeDistance(this.currentFloor)) {
+                    if (currentPassanger.computeDistance(this.currentFloor) < person.computeDistance(this.currentFloor)) {
                         iterator.remove();
                         this.passengers.add(person);
                         return true;
-                    } else if (p.computeDistance(this.currentFloor) == person.computeDistance(this.currentFloor) && Direction.computeDirection(this.currentFloor, p.getDestinationFloor()) == Direction.DOWN) {
+                    } else if (currentPassanger.computeDistance(this.currentFloor) == person.computeDistance(this.currentFloor) && Direction.computeDirection(this.currentFloor, currentPassanger.getDestinationFloor()) == Direction.DOWN) {
                         iterator.remove();
                         this.passengers.add(person);
                         return true;
@@ -194,7 +187,6 @@ public class Elevator {
             this.direction = Direction.getReverseDirection(this.direction);
         }
     }
-//    TODO: Add capacity checks
     public void printSequence() {
         for (Integer number : sequence) {
             System.out.println(number);
