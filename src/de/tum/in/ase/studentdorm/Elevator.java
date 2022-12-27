@@ -132,13 +132,10 @@ public class Elevator {
                 }
             }
         if (person != null) {
+            Direction directionIncomingPerson = Direction.computeDirection(this.currentFloor, person.getDestinationFloor());
             if (this.passengers.size() < this.capacity) {
                 this.passengers.add(person);
-                if (person.getDestinationFloor() > this.currentFloor) {
-                    this.stops.addStop(Direction.UP, person.getDestinationFloor());
-                } else if (person.getDestinationFloor() < this.currentFloor) {
-                    this.stops.addStop(Direction.DOWN, person.getDestinationFloor());
-                }
+                this.stops.addStop(directionIncomingPerson, person.getDestinationFloor());
                 return true;
             } else if (this.passengers.size() == this.capacity) {
                 ListIterator<Person> iterator2 = this.passengers.listIterator();
@@ -153,10 +150,12 @@ public class Elevator {
                     if (currentPassanger.computeDistance(this.currentFloor) < person.computeDistance(this.currentFloor)) {
                         iterator.remove();
                         this.passengers.add(person);
+                        this.stops.addStop(directionIncomingPerson, person.getDestinationFloor());
                         return true;
                     } else if (currentPassanger.computeDistance(this.currentFloor) == person.computeDistance(this.currentFloor) && Direction.computeDirection(this.currentFloor, currentPassanger.getDestinationFloor()) == Direction.DOWN) {
                         iterator.remove();
                         this.passengers.add(person);
+                        this.stops.addStop(directionIncomingPerson, person.getDestinationFloor());
                         return true;
                     }
                 }
@@ -175,6 +174,7 @@ public class Elevator {
             this.direction = Direction.getReverseDirection(this.direction);
         }
     }
+
     public void printSequence() {
         for (Integer number : sequence) {
             System.out.println(number);
