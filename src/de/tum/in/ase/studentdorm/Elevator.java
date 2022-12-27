@@ -91,6 +91,18 @@ public class Elevator {
 
 //    TODO: returns if the elevator has a stop on the current floor.
     public boolean changeFloor() {
+        if (!this.stops.getStopsUp().isEmpty()) {
+            if (this.currentFloor == this.stops.getStopsUp().get(0)) {
+                this.stops.remove(this.direction, 0);
+                return true;
+            }
+        } else if (!this.stops.getStopsDown().isEmpty()) {
+            if (this.currentFloor == this.stops.getStopsDown().get(0)) {
+                this.stops.remove(this.direction, 0);
+                return true;
+            }
+        }
+
         if (this.direction == Direction.IDLE) {
             if (!this.stops.isEmpty(Direction.UP)) {
                 this.direction = Direction.UP;
@@ -99,35 +111,32 @@ public class Elevator {
             } else {
                 return true;
             }
-        }
-        if (!this.stops.isEmpty(this.direction)) {
+        } else if (!this.stops.isEmpty(this.direction)) {
             if (this.direction == Direction.UP) {
-                if (this.currentFloor != this.maxFloor) {
-                    if (this.stops.getStopsUp().contains(this.currentFloor)) {
-                        if (this.currentFloor == this.stops.getStopsUp().get(0)) {
-                            this.stops.remove(this.direction, 0);
-                            return true;
-                        }
-                    } else {
-                        this.currentFloor++;
-                        return false;
+                if (this.stops.getStopsUp().contains(this.currentFloor)) {
+                    if (this.currentFloor == this.stops.getStopsUp().get(0)) {
+                        this.stops.remove(this.direction, 0);
+                        return true;
                     }
+                }
+                if (this.currentFloor != this.maxFloor) {
+                    this.currentFloor++;
+                    return false;
                 } else {
                     this.direction = Direction.DOWN;
                     this.currentFloor--;
                     return false;
                 }
             } else if (this.direction == Direction.DOWN) {
-                if (this.currentFloor != 0) {
-                    if (this.stops.getStopsDown().contains(this.currentFloor)) {
-                        if (this.currentFloor == this.stops.getStopsDown().get(0)) {
-                            this.stops.remove(this.direction, 0);
-                            return true;
-                        }
-                    } else {
-                        this.currentFloor--;
-                        return false;
+                if (this.stops.getStopsDown().contains(this.currentFloor)) {
+                    if (this.currentFloor == this.stops.getStopsDown().get(0)) {
+                        this.stops.remove(this.direction, 0);
+                        return true;
                     }
+                }
+                if (this.currentFloor != 0) {
+                    this.currentFloor--;
+                    return false;
                 } else {
                     this.direction = Direction.UP;
                     this.currentFloor++;
