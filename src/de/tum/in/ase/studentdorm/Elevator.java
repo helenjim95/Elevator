@@ -87,7 +87,6 @@ public class Elevator {
         while (true) {
             if (changeFloor()) {
                 this.sequence.add(this.currentFloor);
-                break;
             }
         }
     }
@@ -104,16 +103,12 @@ public class Elevator {
             if (this.currentFloor == this.stops.getNextStop(this.direction, 0)) {
                 this.stops.remove(this.direction, 0);
                 return true;
-            } else if (this.direction == Direction.UP) {
-                if (this.currentFloor != this.maxFloor) {
-                    this.currentFloor++;
-                    return false;
-                }
-            } else if (this.direction == Direction.DOWN) {
-                if (this.currentFloor != 0) {
-                    this.currentFloor--;
-                    return false;
-                }
+            } else if (this.direction == Direction.UP && this.currentFloor != this.maxFloor) {
+                this.currentFloor++;
+                return false;
+            } else if (this.direction == Direction.DOWN && this.currentFloor != 0) {
+                this.currentFloor--;
+                return false;
             }
         }
         return true;
