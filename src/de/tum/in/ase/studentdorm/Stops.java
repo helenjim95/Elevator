@@ -23,7 +23,7 @@ public class Stops {
         stopsDown = new ArrayList<>();
     }
 
-    //TODO: add Error Handling to each method
+    //add Error Handling to each method
 
     /**
      * This method takes a direction value and based on that value it checks if the corresponding list is empty.
