@@ -91,18 +91,6 @@ public class Elevator {
 
 //    TODO: returns if the elevator has a stop on the current floor.
     public boolean changeFloor() {
-        if (!this.stops.getStopsUp().isEmpty()) {
-            if (this.currentFloor == this.stops.getStopsUp().get(0)) {
-                this.stops.remove(this.direction, 0);
-                return true;
-            }
-        } else if (!this.stops.getStopsDown().isEmpty()) {
-            if (this.currentFloor == this.stops.getStopsDown().get(0)) {
-                this.stops.remove(this.direction, 0);
-                return true;
-            }
-        }
-
         if (this.direction == Direction.IDLE) {
             if (!this.stops.isEmpty(Direction.UP)) {
                 this.direction = Direction.UP;
