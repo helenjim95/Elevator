@@ -159,7 +159,7 @@ public class Elevator {
                     this.stops.addStop(Direction.DOWN, person.getDestinationFloor());
                 }
                 return true;
-            } else {
+            } else if (this.passengers.size() == this.capacity) {
                 ListIterator<Person> iterator2 = this.passengers.listIterator();
                 while (iterator2.hasNext()) {
                     Person p = iterator.next();
