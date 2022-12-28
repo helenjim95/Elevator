@@ -134,24 +134,24 @@ public class Elevator {
                 this.passengers.add(person);
                 this.stops.addStop(directionIncomingPerson, person.getDestinationFloor());
                 return true;
-//            } else if (this.passengers.size() == this.capacity) {
-//                ListIterator<Person> iterator2 = this.passengers.listIterator();
-//                while (iterator2.hasNext()) {
-//                    Person currentPassanger = iterator.next();
-//                    if (currentPassanger.computeDistance(this.currentFloor) < person.computeDistance(this.currentFloor)) {
-////                        iterator.remove();
-//                        this.passengers.remove(currentPassanger);
-//                        this.passengers.add(person);
-//                        this.stops.addStop(directionIncomingPerson, person.getDestinationFloor());
-//                        return true;
-//                    } else if (currentPassanger.computeDistance(this.currentFloor) == person.computeDistance(this.currentFloor) && Direction.computeDirection(this.currentFloor, currentPassanger.getDestinationFloor()) == Direction.DOWN) {
-////                        iterator.remove();
-//                        this.passengers.remove(currentPassanger);
-//                        this.passengers.add(person);
-//                        this.stops.addStop(directionIncomingPerson, person.getDestinationFloor());
-//                        return true;
-//                    }
-//                }
+            } else if (this.passengers.size() == this.capacity) {
+                ListIterator<Person> iterator2 = this.passengers.listIterator();
+                while (iterator2.hasNext()) {
+                    Person currentPassanger = iterator.next();
+                    if (currentPassanger.computeDistance(this.currentFloor) < person.computeDistance(this.currentFloor)) {
+//                        iterator.remove();
+                        this.passengers.remove(currentPassanger);
+                        this.passengers.add(person);
+                        this.stops.addStop(directionIncomingPerson, person.getDestinationFloor());
+                        return true;
+                    } else if (currentPassanger.computeDistance(this.currentFloor) == person.computeDistance(this.currentFloor) && Direction.computeDirection(this.currentFloor, currentPassanger.getDestinationFloor()) == Direction.DOWN) {
+//                        iterator.remove();
+                        this.passengers.remove(currentPassanger);
+                        this.passengers.add(person);
+                        this.stops.addStop(directionIncomingPerson, person.getDestinationFloor());
+                        return true;
+                    }
+                }
             }
         }
         return false;

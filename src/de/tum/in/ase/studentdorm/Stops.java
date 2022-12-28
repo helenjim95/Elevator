@@ -32,9 +32,9 @@ public class Stops {
         if (direction == Direction.IDLE) {
             throw new IllegalArgumentException("Direction cannot be IDLE");
         } else if (direction == Direction.UP) {
-            return this.stopsUp.isEmpty();
+            return this.stopsUp.size() == 0;
         } else {
-            return this.stopsDown.isEmpty();
+            return this.stopsDown.size() == 0;
         }
     }
 
