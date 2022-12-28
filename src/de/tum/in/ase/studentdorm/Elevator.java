@@ -82,10 +82,14 @@ public class Elevator {
     }
 
     public void move() {
-        while (!changeFloor()) {
-            if (changeFloor()) {
-                this.sequence.add(this.currentFloor);
-                break;
+        if (changeFloor()) {
+            this.sequence.add(this.currentFloor);
+        } else {
+            while (!changeFloor()) {
+                if (changeFloor()) {
+                    this.sequence.add(this.currentFloor);
+                    break;
+                }
             }
         }
     }
