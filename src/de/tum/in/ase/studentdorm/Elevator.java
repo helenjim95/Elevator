@@ -172,7 +172,7 @@ public class Elevator {
     }
 
     public void printSequence() {
-        for (Integer number : sequence) {
+        for (Integer number : this.sequence) {
             System.out.println(number);
         }
     }

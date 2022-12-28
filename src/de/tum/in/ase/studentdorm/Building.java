@@ -83,10 +83,10 @@ public class Building {
      * This method can be used to initialize some standard values in order to test the implementation locally.
      */
     public void setupPeopleWaiting() {
-        peopleOnFloor[0] = new Person(1);
-        peopleOnFloor[1] = new Person(2);
-        peopleOnFloor[2] = new Person(3);
-        peopleOnFloor[3] = new Person(4);
+        this.peopleOnFloor[0] = new Person(1);
+        this.peopleOnFloor[1] = new Person(2);
+        this.peopleOnFloor[2] = new Person(3);
+        this.peopleOnFloor[3] = new Person(4);
 //        peopleOnFloor[4] = new Person(3);
     }
 

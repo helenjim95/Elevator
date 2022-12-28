@@ -77,9 +77,9 @@ public class Stops {
         } else if (i < 0) {
             throw new IllegalArgumentException("Index out of bounds");
         } else if (direction == Direction.UP) {
-            stopsUp.add(i);
+            this.stopsUp.add(i);
         } else {
-            stopsDown.add(i);
+            this.stopsDown.add(i);
         }
     }
 
@@ -96,16 +96,16 @@ public class Stops {
         } else if (i < 0) {
             throw new IllegalArgumentException("Index out of bounds");
         } else if (direction == Direction.UP) {
-            if (stopsUp.isEmpty() || i >= stopsUp.size()) {
+            if (this.stopsUp.isEmpty() || i >= this.stopsUp.size()) {
                 throw new IllegalArgumentException("Index out of bounds");
             } else {
-                return stopsUp.get(i);
+                return this.stopsUp.get(i);
             }
         } else {
-            if (stopsDown.isEmpty() || i >= stopsDown.size()) {
+            if (this.stopsDown.isEmpty() || i >= this.stopsDown.size()) {
                 throw new IllegalArgumentException("Index out of bounds");
             } else {
-                return stopsDown.get(i);
+                return this.stopsDown.get(i);
             }
         }
     }
