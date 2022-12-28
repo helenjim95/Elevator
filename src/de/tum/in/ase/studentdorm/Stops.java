@@ -72,14 +72,13 @@ public class Stops {
      *
      */
     public void addStop(Direction direction, int floor) throws IllegalArgumentException {
-        if (direction == Direction.IDLE) {
-            throw new IllegalArgumentException("Direction cannot be IDLE");
-        } else if (floor < 0) {
+        if (floor < 0) {
             throw new IllegalArgumentException("floor number is illegal");
-        } else if (direction == Direction.UP) {
-            this.stopsUp.add(floor);
-        } else {
-            this.stopsDown.add(floor);
+        }
+        switch (direction) {
+            case IDLE -> throw new IllegalArgumentException("Direction cannot be IDLE");
+            case UP -> this.stopsUp.add(floor);
+            case DOWN -> this.stopsDown.add(floor);
         }
     }
 
@@ -91,23 +90,28 @@ public class Stops {
      * @return an int value representing a floor number
      */
     public int getNextStop(Direction direction, int i) throws IllegalArgumentException {
-        if (direction == Direction.IDLE) {
-            throw new IllegalArgumentException("Direction cannot be IDLE");
-        } else if (i < 0) {
+        if (i < 0) {
             throw new IllegalArgumentException("Index out of bounds");
-        } else if (direction == Direction.UP) {
-            if (this.stopsUp.isEmpty() || i >= this.stopsUp.size()) {
-                throw new IllegalArgumentException("Index out of bounds");
-            } else {
-                return this.stopsUp.get(i);
-            }
         } else {
-            if (this.stopsDown.isEmpty() || i >= this.stopsDown.size()) {
-                throw new IllegalArgumentException("Index out of bounds");
-            } else {
-                return this.stopsDown.get(i);
+            switch (direction) {
+                case IDLE -> throw new IllegalArgumentException("Direction cannot be IDLE");
+                case UP -> {
+                    if (this.stopsUp.isEmpty() || i >= this.stopsUp.size()) {
+                        throw new IllegalArgumentException("Index out of bounds");
+                    } else {
+                        return this.stopsUp.get(i);
+                    }
+                }
+                case DOWN -> {
+                    if (this.stopsDown.isEmpty() || i >= this.stopsDown.size()) {
+                        throw new IllegalArgumentException("Index out of bounds");
+                    } else {
+                        return this.stopsDown.get(i);
+                    }
+                }
             }
         }
+        return 0;
     }
 
     public List<Integer> getStopsUp() {
