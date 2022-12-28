@@ -95,10 +95,8 @@ public class Elevator {
         if (this.direction == Direction.IDLE) {
             if (!this.stops.isEmpty(Direction.UP)) {
                 this.direction = Direction.UP;
-            } else if (!this.stops.isEmpty(Direction.DOWN)) {
-                this.direction = Direction.DOWN;
             }
-        } else if (!this.stops.isEmpty(this.direction) && this.currentFloor == this.stops.getNextStop(this.direction, 0)) {
+        } else if (this.currentFloor == this.stops.getNextStop(this.direction, 0)) {
             return true;
         } else if (this.direction == Direction.UP) {
             this.currentFloor++;

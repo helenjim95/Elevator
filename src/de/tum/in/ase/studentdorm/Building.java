@@ -47,10 +47,7 @@ public class Building {
         while (this.elevator.getDirection() != Direction.IDLE) {
             this.elevator.move();
             Person personIncoming = this.peopleOnFloor[this.elevator.getCurrentFloor()];
-            boolean personEnter = this.elevator.openDoor(personIncoming);
-            if (personEnter) {
-                this.elevator.getSequence().add(personIncoming.getDestinationFloor());
-            }
+            this.elevator.openDoor(personIncoming);
             this.elevator.closeDoor();
         }
         //uncomment the following two lines for easier local testing
