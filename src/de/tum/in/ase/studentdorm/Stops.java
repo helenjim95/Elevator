@@ -29,12 +29,13 @@ public class Stops {
      * This method takes a direction value and based on that value it checks if the corresponding list is empty.
      */
     public boolean isEmpty(Direction direction) throws IllegalArgumentException {
-        if (direction == Direction.IDLE) {
-            throw new IllegalArgumentException("Direction cannot be IDLE");
-        } else if (direction == Direction.UP) {
-            return this.stopsUp.size() == 0;
-        } else {
-            return this.stopsDown.size() == 0;
+        switch (direction) {
+            case UP:
+                return this.stopsUp.size() == 0;
+            case DOWN:
+                return this.stopsDown.size() == 0;
+            default:
+                throw new IllegalArgumentException("Direction must be UP or DOWN");
         }
     }
 
@@ -79,6 +80,7 @@ public class Stops {
             case IDLE -> throw new IllegalArgumentException("Direction cannot be IDLE");
             case UP -> this.stopsUp.add(floor);
             case DOWN -> this.stopsDown.add(floor);
+            default -> throw new IllegalArgumentException("Direction must be UP or DOWN");
         }
     }
 
@@ -109,9 +111,9 @@ public class Stops {
                         return this.stopsDown.get(i);
                     }
                 }
+                default -> throw new IllegalArgumentException("Direction must be UP or DOWN");
             }
         }
-        return 0;
     }
 
     public List<Integer> getStopsUp() {
