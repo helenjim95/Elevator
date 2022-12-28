@@ -18,10 +18,8 @@ public class Elevator {
         this.direction = Direction.IDLE;
         this.stops = new Stops();
         this.sequence = new ArrayList<>();
-        if (capacity < 0) {
+        if (capacity < DEFAULT_CAPACITY) {
             throw new IllegalArgumentException("illegal capacity");
-        } else if (capacity < DEFAULT_CAPACITY) {
-            this.capacity = DEFAULT_CAPACITY;
         } else {
             this.capacity = capacity;
         }
@@ -95,10 +93,12 @@ public class Elevator {
 //    TODO: returns if the elevator has a stop on the current floor.
     public boolean changeFloor() {
         if (this.direction == Direction.IDLE) {
-            if (!this.stops.isEmpty(Direction.UP) || !this.stops.isEmpty(Direction.DOWN)) {
+            if (!this.stops.isEmpty(Direction.UP)) {
                 this.direction = Direction.UP;
+            } else if (!this.stops.isEmpty(Direction.DOWN)) {
+                this.direction = Direction.DOWN;
             }
-        } else if (this.currentFloor == this.stops.getNextStop(this.direction, 0)) {
+        } else if (!this.stops.isEmpty(this.direction) && this.currentFloor == this.stops.getNextStop(this.direction, 0)) {
             return true;
         } else if (this.direction == Direction.UP) {
             this.currentFloor++;
