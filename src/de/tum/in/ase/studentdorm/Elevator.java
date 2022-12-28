@@ -82,11 +82,8 @@ public class Elevator {
     }
 
     public void move() {
-        while (true) {
-            if (changeFloor()) {
-                this.sequence.add(this.currentFloor);
-                break;
-            }
+        while (!changeFloor()) {
+            this.sequence.add(this.currentFloor);
         }
     }
 
@@ -139,16 +136,16 @@ public class Elevator {
             } else if (this.passengers.size() == this.capacity) {
                 ListIterator<Person> iterator2 = this.passengers.listIterator();
                 while (iterator2.hasNext()) {
-                    Person currentPassanger = iterator.next();
+                    Person currentPassanger = iterator2.next();
                     if (currentPassanger.computeDistance(this.currentFloor) < person.computeDistance(this.currentFloor)) {
-//                        iterator.remove();
-                        this.passengers.remove(currentPassanger);
+                        iterator2.remove();
+//                        this.passengers.remove(currentPassanger);
                         this.passengers.add(person);
                         this.stops.addStop(directionIncomingPerson, person.getDestinationFloor());
                         return true;
                     } else if (currentPassanger.computeDistance(this.currentFloor) == person.computeDistance(this.currentFloor) && Direction.computeDirection(this.currentFloor, currentPassanger.getDestinationFloor()) == Direction.DOWN) {
-//                        iterator.remove();
-                        this.passengers.remove(currentPassanger);
+                        iterator2.remove();
+//                        this.passengers.remove(currentPassanger);
                         this.passengers.add(person);
                         this.stops.addStop(directionIncomingPerson, person.getDestinationFloor());
                         return true;
@@ -163,9 +160,9 @@ public class Elevator {
 //        checked if the elevator visited all stops in the stops lists
         if (this.stops.isEmpty(Direction.UP) && this.stops.isEmpty(Direction.DOWN)) {
             this.direction = Direction.IDLE;
-        } else if (this.stops.isEmpty(Direction.UP) || this.currentFloor == this.maxFloor) {
+        } else if (this.direction == Direction.UP && (this.stops.isEmpty(Direction.UP) || this.currentFloor == this.maxFloor)) {
             this.direction = Direction.getReverseDirection(this.direction);
-        } else if (this.stops.isEmpty(Direction.DOWN) || this.currentFloor == 0) {
+        } else if (this.direction == Direction.DOWN && (this.stops.isEmpty(Direction.DOWN) || this.currentFloor == 0)) {
             this.direction = Direction.getReverseDirection(this.direction);
         }
     }

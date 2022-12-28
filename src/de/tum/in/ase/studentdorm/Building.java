@@ -83,18 +83,17 @@ public class Building {
      * This method can be used to initialize some standard values in order to test the implementation locally.
      */
     public void setupPeopleWaiting() {
-        this.peopleOnFloor[0] = new Person(1);
-        this.peopleOnFloor[1] = new Person(2);
-        this.peopleOnFloor[2] = new Person(3);
-        this.peopleOnFloor[3] = new Person(4);
-//        peopleOnFloor[4] = new Person(3);
+        this.peopleOnFloor[0] = new Person(2);
+        this.peopleOnFloor[1] = new Person(0);
+        this.peopleOnFloor[4] = new Person(3);
+//        this.peopleOnFloor[3] = new Person(4);
     }
 
 
 
     //TODO: use the main method for local testing and debugging
     public static void main(String[] args) {
-        Elevator elevator = new Elevator(15, 6);
+        Elevator elevator = new Elevator(15, 5);
         Building building = new Building(6, elevator);
 //        System.out.println(building.getElevator().getMaxFloor());
         building.setupPeopleWaiting();
