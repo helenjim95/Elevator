@@ -137,12 +137,6 @@ public class Elevator {
                 ListIterator<Person> iterator2 = this.passengers.listIterator();
                 while (iterator2.hasNext()) {
                     Person currentPassanger = iterator.next();
-                    if (currentPassanger.getDestinationFloor() == this.currentFloor) {
-                        iterator.remove();
-                        if (this.direction != Direction.IDLE) {
-                            this.stops.remove(this.direction, currentPassanger.getDestinationFloor());
-                        }
-                    }
                     if (currentPassanger.computeDistance(this.currentFloor) < person.computeDistance(this.currentFloor)) {
                         iterator.remove();
                         this.passengers.add(person);
