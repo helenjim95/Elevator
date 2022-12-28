@@ -116,7 +116,9 @@ public class Elevator {
             return p1Distance - p2Distance;
         };
         this.passengers.sort(comparator);
-
+        while (this.passengers.size() > this.capacity) {
+            this.passengers.remove(0);
+        }
         ListIterator<Person> iterator = this.passengers.listIterator();
             while (iterator.hasNext()) {
                 Person currentPassanger = iterator.next();
