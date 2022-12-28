@@ -75,7 +75,7 @@ public class Stops {
         if (direction == Direction.IDLE) {
             throw new IllegalArgumentException("Direction cannot be IDLE");
         } else if (i < 0) {
-            throw new IllegalArgumentException("Index out of bounds");
+            throw new IllegalArgumentException("floor number is illegal");
         } else if (direction == Direction.UP) {
             this.stopsUp.add(i);
         } else {
