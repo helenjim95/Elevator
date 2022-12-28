@@ -83,11 +83,13 @@ public class Elevator {
 
     public void move() {
         while (!changeFloor()) {
-            this.sequence.add(this.currentFloor);
+            if (changeFloor()) {
+                this.sequence.add(this.currentFloor);
+            }
         }
     }
 
-//    TODO: returns if the elevator has a stop on the current floor.
+//  returns if the elevator has a stop on the current floor.
     public boolean changeFloor() {
         switch (this.direction) {
             case IDLE -> {
