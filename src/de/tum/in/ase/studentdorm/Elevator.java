@@ -82,16 +82,13 @@ public class Elevator {
     }
 
     public void move() {
-        if (changeFloor()) {
-            this.sequence.add(this.currentFloor);
-        } else {
-            while (!changeFloor()) {
-                if (changeFloor()) {
-                    this.sequence.add(this.currentFloor);
-                    break;
-                }
+        while (!changeFloor()) {
+            if (changeFloor()) {
+                this.sequence.add(this.currentFloor);
+                break;
             }
         }
+        this.sequence.add(this.currentFloor);
     }
 
 //  returns if the elevator has a stop on the current floor.
