@@ -85,6 +85,7 @@ public class Elevator {
         while (!changeFloor()) {
             if (changeFloor()) {
                 this.sequence.add(this.currentFloor);
+                break;
             }
         }
     }
@@ -101,7 +102,7 @@ public class Elevator {
             }
             case UP -> this.currentFloor++;
             case DOWN -> this.currentFloor--;
-            default -> throw new IllegalStateException("illegal change: " + this.direction);
+            default -> throw new IllegalStateException("Illegal change: " + this.direction);
         }
         return stops.getNextStop(this.direction, 0) == this.currentFloor;
     }
