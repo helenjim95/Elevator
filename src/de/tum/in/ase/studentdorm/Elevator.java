@@ -121,10 +121,9 @@ public class Elevator {
             while (iterator.hasNext()) {
                 Person currentPassanger = iterator.next();
                 if (currentPassanger.getDestinationFloor() == this.currentFloor) {
-                    iterator.remove();
-                    if (this.direction != Direction.IDLE) {
-                        this.stops.remove(this.direction, currentPassanger.getDestinationFloor());
-                    }
+//                    iterator.remove();
+                    this.passengers.remove(currentPassanger);
+                    this.stops.remove(this.direction, currentPassanger.getDestinationFloor());
                 }
             }
         if (person != null) {
@@ -138,12 +137,14 @@ public class Elevator {
                 while (iterator2.hasNext()) {
                     Person currentPassanger = iterator.next();
                     if (currentPassanger.computeDistance(this.currentFloor) < person.computeDistance(this.currentFloor)) {
-                        iterator.remove();
+//                        iterator.remove();
+                        this.passengers.remove(currentPassanger);
                         this.passengers.add(person);
                         this.stops.addStop(directionIncomingPerson, person.getDestinationFloor());
                         return true;
                     } else if (currentPassanger.computeDistance(this.currentFloor) == person.computeDistance(this.currentFloor) && Direction.computeDirection(this.currentFloor, currentPassanger.getDestinationFloor()) == Direction.DOWN) {
-                        iterator.remove();
+//                        iterator.remove();
+                        this.passengers.remove(currentPassanger);
                         this.passengers.add(person);
                         this.stops.addStop(directionIncomingPerson, person.getDestinationFloor());
                         return true;
