@@ -128,7 +128,7 @@ public class Elevator {
                 if (currentPassanger.getDestinationFloor() == this.currentFloor) {
 //                    iterator.remove();
                     this.passengers.remove(currentPassanger);
-                    this.stops.remove(this.direction, currentPassanger.getDestinationFloor());
+                    this.stops.remove(this.direction, 0);
                 }
             }
         if (person != null) {

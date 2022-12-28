@@ -45,22 +45,22 @@ public class Stops {
      * the int value determines the position within the list to remove from.
      *
      */
-    public void remove(Direction direction, int i) throws IllegalArgumentException {
+    public void remove(Direction direction, int index) throws IllegalArgumentException {
         if (direction == Direction.IDLE) {
             throw new IllegalArgumentException("Direction cannot be IDLE");
-        } else if (i < 0) {
+        } else if (index < 0) {
             throw new IllegalArgumentException("Index out of bounds");
         } else if (direction == Direction.UP) {
-            if (i >= this.stopsUp.size()) {
+            if (index >= this.stopsUp.size()) {
                 throw new IllegalArgumentException("Index out of bounds");
             } else {
-                this.stopsUp.remove(i);
+                this.stopsUp.remove(index);
             }
         } else {
-            if (i >= this.stopsDown.size()) {
+            if (index >= this.stopsDown.size()) {
                 throw new IllegalArgumentException("Index out of bounds");
             } else {
-                this.stopsDown.remove(i);
+                this.stopsDown.remove(index);
             }
         }
     }
@@ -71,15 +71,15 @@ public class Stops {
      * value represents the floor number which should be added.
      *
      */
-    public void addStop(Direction direction, int i) throws IllegalArgumentException {
+    public void addStop(Direction direction, int floor) throws IllegalArgumentException {
         if (direction == Direction.IDLE) {
             throw new IllegalArgumentException("Direction cannot be IDLE");
-        } else if (i < 0) {
+        } else if (floor < 0) {
             throw new IllegalArgumentException("floor number is illegal");
         } else if (direction == Direction.UP) {
-            this.stopsUp.add(i);
+            this.stopsUp.add(floor);
         } else {
-            this.stopsDown.add(i);
+            this.stopsDown.add(floor);
         }
     }
 
