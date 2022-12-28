@@ -144,12 +144,14 @@ public class Elevator {
                     if (currentPassanger.computeDistance(this.currentFloor) < person.computeDistance(this.currentFloor)) {
                         iterator2.remove();
 //                        this.passengers.remove(currentPassanger);
+                        this.stops.remove(this.direction, 0);
                         this.passengers.add(person);
                         this.stops.addStop(directionIncomingPerson, person.getDestinationFloor());
                         return true;
                     } else if (currentPassanger.computeDistance(this.currentFloor) == person.computeDistance(this.currentFloor) && Direction.computeDirection(this.currentFloor, currentPassanger.getDestinationFloor()) == Direction.DOWN) {
                         iterator2.remove();
 //                        this.passengers.remove(currentPassanger);
+                        this.stops.remove(this.direction, 0);
                         this.passengers.add(person);
                         this.stops.addStop(directionIncomingPerson, person.getDestinationFloor());
                         return true;
